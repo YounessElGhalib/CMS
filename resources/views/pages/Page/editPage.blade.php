@@ -134,11 +134,11 @@
             <!-- BEGIN: Subheader -->
             <div class="m-subheader ">
                 <div class="d-flex align-items-center">
-                    <div class="mr-auto">
+                    {{--  <div class="mr-auto">
                         <h3 class="m-subheader__title ">
                             Page
                         </h3>
-                    </div>
+                    </div>  --}}
                     {{--  <div>
                         <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
                             <span class="m-subheader__daterange-label">

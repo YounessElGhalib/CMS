@@ -37,7 +37,7 @@ class NewArticleController extends Controller
         // if ($bytes_written === false)
         // {
         //     die("Error writing to file");
-        // }
+        // } 
 
         // if($file)
         // return 'true';
@@ -116,15 +116,6 @@ class NewArticleController extends Controller
     {
         
     }
-
-    // public function selectCate($id)
-    // {
-    //     $pages = DB::table('pages')->where('type', '=', 'Article')->get();
-    //     $countArticles = DB::table('pages')->where('type', '=', 'Article')->count();
-    //     $cats = DB::table('categories')->get();
-    //     $pageCates = DB::table('page_cates')->get();
-    //     return view('pages.articles',compact('pages', 'countArticles', 'cats', 'pageCates'));
-    // }
 
     /**
      * Show the form for editing the specified resource.

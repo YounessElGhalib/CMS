@@ -354,28 +354,26 @@
         var table = '#mytable'
 
         $('#form_search').on('keyup', function(){
-            //$('.messg').html('')
-            var valu = document.getElementById('form_search').value;
-            //if(valu != ""){
-                $('.pagination').html('')
-                $('.afficher').html('')
-                tr=0;
-                td=0;
-                var res = false;
-                $(table+' #tabTd').each(function(){
-                    var index = $(this).text().indexOf(valu);
-                    if(td%2==0){
-                        res = false;
-                    }
-                    if(index == 0){
-                        //$(this).css("color", "blue");
-                        res = true;
-                        td++;
-                    }else{
-                        //$(this).css("color", "black");
-                        td++;
-                    }
-
+                var valu = document.getElementById('form_search').value;
+                //if(valu != ""){
+                    $('.pagination').html('')
+                    $('.afficher').html('')
+                    tr=0;
+                    td=0;
+                    var res = false;
+                    $(table+' #tabTd').each(function(){
+                        var index = $(this).text().indexOf(valu);
+                        if(td%2==0){
+                            res = false;
+                        }
+                        if(index == 0){
+                            //$(this).css("color", "blue");
+                            res = true;
+                            td++;
+                        }else{
+                            //$(this).css("color", "black");
+                            td++;
+                        }
                     if(td%2==0 && res == true){
                         $(".tr:eq("+tr+")").show();
                         tr++;
@@ -384,7 +382,6 @@
                         tr++;
                     }
                 })
-            //}
         });
 
         $('#selectCate').on('change', function(){

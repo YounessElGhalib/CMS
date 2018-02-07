@@ -57,29 +57,15 @@ Route::prefix('/backend')->group(function () {
     //route categories
     Route::get('/categorie/newCategorie','NewCategorieController@categorie')->name('newCategorie');
     Route::resource('/categories','NewCategorieController');
-
+    
     //route articles
-    //Route::delete('/articles/{id}', 'NewArticleController@destroy');
-    Route::get('/articles','NewArticleController@selectCate')->name('selectCategorie');
     Route::get('/article/newArticle','NewArticleController@article')->name('newArticle');
     Route::resource('/articles','NewArticleController');
     
-
     //route user
     Route::resource('/user_profile','UserController');
-
-
 
     //route langue
     Route::get('/language/newLangue','LanguageController@langue')->name('newLangue');
     Route::resource('/language','LanguageController');
-
-
-    // Route::post('/language-chooser', 'LanguageController@changeLanguage');
-
-    // Route::post('/language/',array(
-    //     'before' => 'csrf',
-    //     'as' => 'language-chooser',
-    //     'uses' => 'LanguageController@changeLanguage',
-    // ));
 });

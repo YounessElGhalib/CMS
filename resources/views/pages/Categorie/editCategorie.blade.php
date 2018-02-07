@@ -134,22 +134,6 @@
             <!-- BEGIN: Subheader -->
             <div class="m-subheader ">
                 <div class="d-flex align-items-center">
-                    <div class="mr-auto">
-                        <h3 class="m-subheader__title ">
-                            Catégorie
-                        </h3>
-                    </div>
-                    {{--  <div>
-                        <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
-                            <span class="m-subheader__daterange-label">
-                                <span class="m-subheader__daterange-title"></span>
-                                <span class="m-subheader__daterange-date m--font-brand"></span>
-                            </span>
-                            <a href="#" class="btn btn-sm btn-brand m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
-                                <i class="la la-angle-down"></i>
-                            </a>
-                        </span>
-                    </div>  --}}
                 </div>
             </div>
             <!-- END: Subheader -->
@@ -205,16 +189,6 @@
                                                     {!! Form::label('name', 'Url') !!}
                                                     {!! Form::text('url', null, ['class'=>'form-control']) !!}
                                                 </div>
-                                                {{--  @isset($select)
-                                                    <div class="form-group">
-                                                        {!! Form::label('categorie', 'Categorie') !!}
-                                                        {!! Form::select('categorie', $selectCat, null, ['class'=>'form-control']) !!}
-                                                    </div>
-                                                @endisset  --}}
-                                                {{--  <div class="form-group">
-                                                    {!! Form::label('statu', 'Statu') !!}
-                                                    {!! Form::text('statu', null, ['class'=>'form-control']) !!}
-                                                </div>  --}}
                                                 <div class="form-group">
                                                     {!! Form::label('seo_titre', 'SEO titre') !!}
                                                     {!! Form::text('seo_titre', null, ['class'=>'form-control']) !!}

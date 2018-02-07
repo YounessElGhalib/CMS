@@ -134,7 +134,7 @@
             <!-- BEGIN: Subheader -->
             <div class="m-subheader ">
                 <div class="d-flex align-items-center">
-                    <div class="mr-auto">
+                    {{--  <div class="mr-auto">
                         <h3 class="m-subheader__title ">
                             Page
                         </h3>
@@ -149,7 +149,7 @@
                                 <i class="la la-angle-down"></i>
                             </a>
                         </span>
-                    </div>
+                    </div>  --}}
                 </div>
             </div>
             <!-- END: Subheader -->
@@ -195,7 +195,7 @@
                                             @endif
                                             {!! Form::open(array('route'=>'pages.store')) !!}
                                                 <div class="form-group" align="right">
-                                                    {!! Form::button('Add', ['type'=>'submit', 'class'=>'btn m-btn--pill btn-brand']) !!}
+                                                    {!! Form::button('Ajouter', ['type'=>'submit', 'class'=>'btn m-btn--pill btn-brand']) !!}
                                                 </div>
                                                 <div class="form-group">
                                                     {!! Form::label('titre', 'Titre') !!}
@@ -205,12 +205,6 @@
                                                     {!! Form::label('titre', 'Url') !!}
                                                     {!! Form::text('url', null, ['class'=>'form-control']) !!}
                                                 </div>
-                                                {{--  @isset($select)
-                                                    <div class="form-group">
-                                                        {!! Form::label('categorie', 'Categorie') !!}
-                                                        {!! Form::select('categorie', $select, null, ['class'=>'form-control']) !!}
-                                                    </div>
-                                                @endisset  --}}
                                                 <div class="form-group">
                                                     {!! Form::label('statu', 'Statu') !!}
                                                     {!! Form::text('statu', null, ['class'=>'form-control']) !!}

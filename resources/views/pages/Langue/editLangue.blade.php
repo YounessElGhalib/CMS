@@ -18,7 +18,7 @@
                             <span class="m-menu__link-title">
                                 <span class="m-menu__link-wrap">
                                     <span class="m-menu__link-text">
-                                        {{ __('messages.menuDash') }}
+                                        Tableau de bord
                                     </span>
                                 </span>
                             </span>
@@ -74,7 +74,7 @@
                                             <span></span>
                                         </i>
                                         <span class="m-menu__link-text">
-                                            {{ __('messages.menuCategorie') }}
+                                            Catégorie
                                         </span>
                                     </a>
                                 </li>
@@ -91,7 +91,7 @@
                         <a  href="{{ url('/backend/user_profile') }}" class="m-menu__link m-menu__toggle">
                             <i class="m-menu__link-icon flaticon-user"></i>
                             <span class="m-menu__link-text">
-                                {{ __('messages.menuUser') }}
+                                Profile utilisateur
                             </span>
                         </a>
                     </li>
@@ -99,7 +99,7 @@
                         <a  href="#" class="m-menu__link m-menu__toggle">
                             <i class="m-menu__link-icon flaticon-settings"></i>
                             <span class="m-menu__link-text">
-                                {{ __('messages.menuSetting') }}
+                                Réglage
                             </span>
                             <i class="m-menu__ver-arrow la la-angle-right"></i>
                         </a>
@@ -109,17 +109,17 @@
                                 <li class="m-menu__item  m-menu__item--parent" aria-haspopup="true" >
                                     <a  href="#" class="m-menu__link ">
                                         <span class="m-menu__link-text">
-                                            {{ __('messages.menuSetting') }}
+                                            Réglage
                                         </span>
                                     </a>
                                 </li>
                                 <li class="m-menu__item m-menu__item--active" aria-haspopup="true" >
-                                    <a  href="{{ url('/backend/articles') }}" class="m-menu__link ">
+                                    <a  href="{{ url('/backend/language') }}" class="m-menu__link ">
                                         <i class="m-menu__link-bullet m-menu__link-bullet--dot">
                                             <span></span>
                                         </i>
                                         <span class="m-menu__link-text">
-                                            {{ __('messages.menuLangue') }}
+                                            Language
                                         </span>
                                     </a>
                                 </li>
