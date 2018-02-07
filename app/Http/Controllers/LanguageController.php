@@ -11,6 +11,10 @@ use DB;
 
 class LanguageController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
 
     public function setLocale($locale='en'){
         if(!in_array($locale, ['fr', 'en'])){

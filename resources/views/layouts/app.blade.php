@@ -297,8 +297,78 @@
                                     </li>
                                 </ul>
                             </div>
+                            <div class="m-stack__item m-topbar__nav-wrapper">
+                                <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark "  >
+                                    <ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
+                                        <li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  data-menu-submenu-toggle="click" aria-haspopup="true">
+                                            <a  href="#" class="m-menu__link m-menu__toggle">
+                                                <i class="m-menu__link-icon flaticon-user"></i>
+                                                <span class="m-menu__link-title">
+                                                    <span class="m-menu__link-wrap">
+                                                        <span class="m-menu__link-text">
+                                                            {{ Auth::user()->name }}
+                                                        </span>
+                                                    </span>
+                                                </span>
+                                                <i class="m-menu__hor-arrow la la-angle-down"></i>
+                                                <i class="m-menu__ver-arrow la la-angle-right"></i>
+                                            </a>
+                                            <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
+                                                <span class="m-menu__arrow m-menu__arrow--adjust"></span>
+                                                <ul class="m-menu__subnav">
+                                                    <li class="m-menu__item "  data-redirect="true" aria-haspopup="true">
+                                                            <a  href="{{ route('logout') }}" class="m-menu__link" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                                <i class="m-menu__link-icon flaticon-logout"></i>
+                                                                <span class="m-menu__link-text">
+                                                                    Logout
+                                                                </span>
+                                                            </a>
+                                                        <form action="{{ route('logout') }}" method="POST">
+                                                            {{ csrf_field() }}
+                                                        </form>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                            <div class="collapse navbar-collapse" id="app-navbar-collapse">
+                                                <!-- Left Side Of Navbar -->
+                                                <ul class="nav navbar-nav">
+                                                    &nbsp;
+                                                </ul>
+                                    
+                                                <!-- Right Side Of Navbar -->
+                                                <ul class="nav navbar-nav navbar-right">
+                                                    <!-- Authentication Links -->
+                                                    @guest
+                                                        <li><a href="{{ route('login') }}">Login</a></li>
+                                                        <li><a href="{{ route('register') }}">Register</a></li>
+                                                    @else
+                                                        <li class="dropdown">
+                                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false" aria-haspopup="true">
+                                                                {{ Auth::user()->name }} <span class="caret"></span>
+                                                            </a>
+                                    
+                                                            <ul class="dropdown-menu">
+                                                                <li>
+                                                                    <a href="{{ route('logout') }}"
+                                                                        onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                                                                        Logout
+                                                                    </a>
+                                    
+                                                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+                                                                        {{ csrf_field() }}
+                                                                    </form>
+                                                                </li>
+                                                            </ul>
+                                                        </li>
+                                                    @endguest
+                                                </ul>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
                         </div>
-                        <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark "  >
+                        {{--  <div style="background-color:red" id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark "  >
                             <ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
                                 <li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  data-menu-submenu-toggle="click" aria-haspopup="true">
                                     <a  href="#" class="m-menu__link m-menu__toggle">
@@ -365,7 +435,7 @@
                                     </div>
                                 </li>
                             </ul>
-                        </div>
+                        </div>  --}}
                         <!-- END: Topbar -->
                     </div>
                 </div>

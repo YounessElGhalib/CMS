@@ -45,6 +45,7 @@ Route::prefix('/backend')->group(function () {
     Route::get('/articles/{locale}', array('as'=>'set-locale', 'uses'=>'LanguageController@setLocale'));
     
     Route::resource('/home', 'HomeController');
+    
     //route pages
     Route::get('/pages/newPage','NewPageController@page')->name('newPage');
     Route::resource('/pages','NewPageController');
