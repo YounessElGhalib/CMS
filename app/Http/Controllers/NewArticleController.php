@@ -9,6 +9,9 @@ use DB;
 use DateTime;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Filesystem\Filesystem;
+use Session;
+use URL;
+use App;
 
 
 class NewArticleController extends Controller
@@ -43,6 +46,7 @@ class NewArticleController extends Controller
         // return 'true';
         // else 
         // return 'false';
+
         $pages = DB::table('pages')->where('type', '=', 'Article')->get();
         $countArticles = DB::table('pages')->where('type', '=', 'Article')->count();
         $cats = DB::table('categories')->get();
@@ -52,12 +56,13 @@ class NewArticleController extends Controller
 
     public function article()
     {
+        $langs = DB::table('langues')->get();
         $categories = DB::table('categories')->get();
         $select = [];
         foreach($categories as $categorie){
             $select[$categorie->id] = $categorie->nom;
         }
-        return view('pages.Article.newArticle',compact('select'));
+        return view('pages.Article.newArticle',compact('select', 'langs'));
     }
 
     /**
@@ -78,8 +83,8 @@ class NewArticleController extends Controller
      */
     public function store(Request $request)
     {
+        Page::create(request(['titre',]));
         $page = new Page();
-
         $page->titre = $request->titre;
         $page->contenu = $request->content;
         $page->type = 'Article';
@@ -87,6 +92,7 @@ class NewArticleController extends Controller
         $page->statu = $request->statu;
         $page->seo_titre = $request->seo_titre;
         $page->seo_description = $request->seo_description;
+        $page->idLang = $request->lang;
 
         $page->save();
 
@@ -125,12 +131,13 @@ class NewArticleController extends Controller
      */
     public function edit(Page $page, $id)
     {
+        $langs = DB::table('langues')->get();
         $pages = DB::table('pages')->where('id', '=', $id)->get();
         
         foreach($pages as $page){
             $selectCat[$page->id] = $page->titre;
         }
-        return view('pages.Article.editArticle',compact('page', 'selectCat'));
+        return view('pages.Article.editArticle',compact('page', 'selectCat', 'langs'));
     }
 
     /**
@@ -147,7 +154,8 @@ class NewArticleController extends Controller
             'contenu' => $request->contenu,
             'statu' => $request->statu,
             'seo_titre' => $request->seo_titre,
-            'seo_description' => $request->seo_description
+            'seo_description' => $request->seo_description,
+            'idLang' => $request->lang
         ]);
 
         return redirect()->route('articles.index')->with('message',"L'article a été mis à jour avec succès");

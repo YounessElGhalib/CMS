@@ -33,6 +33,9 @@
 	<link rel="shortcut icon" href="../assets/demo/default/media/img/logo/favicon.ico" />
     <!-- scripte Alert swal -->
     <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet" />
+    
+    <link href="{{ url(asset('flags/css/flag-icon.css'))}}" rel="stylesheet">
+    
     <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
     {{-- <script src="https://cloud.tinymce.com/stable/tinymce.min.js"></script>
     <script>tinymce.init({ selector:'textarea' });</script> --}}
@@ -300,6 +303,52 @@
                             <div class="m-stack__item m-topbar__nav-wrapper">
                                 <div id="m_header_menu" class="m-header-menu m-aside-header-menu-mobile m-aside-header-menu-mobile--offcanvas  m-header-menu--skin-light m-header-menu--submenu-skin-light m-aside-header-menu-mobile--skin-dark m-aside-header-menu-mobile--submenu-skin-dark "  >
                                     <ul class="m-menu__nav  m-menu__nav--submenu-arrow ">
+                                        <li class="m-menu__item m-menu__item--submenu m-menu__item--rel m-menu__item--open-dropdown" data-menu-submenu-toggle="click" aria-haspopup="true">
+                                            <a href="#" class="m-menu__link m-menu__toggle">
+                                                {{--  <i class="m-menu__link-icon flaticon-add"></i>  --}}
+                                                <span class="m-menu__link-text">
+                                                    @if(App::getLocale() == 'fr')
+                                                        <div class="img-thumbnail flag flag-icon-background flag-icon-fr"></div>
+                                                    @endif
+                                                    @if(App::getLocale() == 'en')
+                                                        <div class="img-thumbnail flag flag-icon-background flag-icon-en"></div>
+                                                    @endif
+                                                </span>
+                                                <i class="m-menu__hor-arrow la la-angle-down"></i>
+                                                <i class="m-menu__ver-arrow la la-angle-right"></i>
+                                            </a>
+                                            <div class="m-menu__submenu m-menu__submenu--classic m-menu__submenu--left">
+                                                <span class="m-menu__arrow m-menu__arrow--adjust" style="left: 72.6835px;"></span>
+                                                <ul class="m-menu__subnav">
+                                                    <li class="m-menu__item " aria-haspopup="true">
+                                                        <a href="{{ url('/backend/articles/fr') }}" class="m-menu__link">
+                                                            {{--  <i class="m-menu__link-icon flaticon-file"></i>  --}}
+                                                            <span class="m-menu__link-text">
+                                                                <table>
+                                                                    <tr>
+                                                                        <td><div class="img-thumbnail flag flag-icon-background flag-icon-fr"></div></td>
+                                                                        <td>{{ __('messages.francais') }}</td>
+                                                                    </tr>
+                                                                </table>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                    <li class="m-menu__item " aria-haspopup="true">
+                                                        <a href="{{ url('/backend/articles/en') }}" class="m-menu__link">
+                                                            {{--  <i class="m-menu__link-icon flaticon-file"></i>  --}}
+                                                            <span class="m-menu__link-text">
+                                                                <table>
+                                                                    <tr>
+                                                                        <td><div class="img-thumbnail flag flag-icon-background flag-icon-en"></div></td>
+                                                                        <td>{{ __('messages.anglais') }}</td>
+                                                                    </tr>
+                                                                </table>
+                                                            </span>
+                                                        </a>
+                                                    </li>
+                                                </ul>
+                                            </div>
+                                        </li>
                                         <li class="m-menu__item  m-menu__item--submenu m-menu__item--rel"  data-menu-submenu-toggle="click" aria-haspopup="true">
                                             <a  href="#" class="m-menu__link m-menu__toggle">
                                                 <i class="m-menu__link-icon flaticon-user"></i>

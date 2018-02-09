@@ -311,7 +311,7 @@
                                         </div>                                   --}}
                                         {{--  <div class="col-md-4">
                                             <div class="select">
-                                                <ul>
+                                                <ul> 
                                                     <li><a href="{{ url('/backend/articles/fr') }}">{{ __('messages.francais') }}</a></li>
                                                     <li><a href="{{ url('/backend/articles/en') }}">{{ __('messages.anglais') }}</a></li>
                                                 </ul>

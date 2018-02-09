@@ -197,9 +197,25 @@
                                                 <div class="form-group" align="right">
                                                     {!! Form::button('Ajouter', ['type'=>'submit', 'class'=>'btn m-btn--pill btn-brand']) !!}
                                                 </div>
-                                                <div class="form-group">
-                                                    {!! Form::label('titre', 'Titre') !!}
-                                                    {!! Form::text('titre', null, ['class'=>'form-control']) !!}
+                                                <div class="row">
+                                                    <div class="col-xl-8">
+                                                        <div class="form-group">
+                                                            {!! Form::label('titre', 'Titre') !!}
+                                                            {!! Form::text('titre', null, ['class'=>'form-control']) !!}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        {!! Form::label('langue', 'Langue') !!}
+                                                        <div class="select">
+                                                            <select id="selectCate" name="lang" class="form-control m-bootstrap-select--solid">
+                                                                @isset($langs)
+                                                                    @foreach($langs as $lang)
+                                                                        <option value="{{ $lang->id }}" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td><td>{{ $lang->lang }}</td></tr></table>'></option>
+                                                                    @endforeach
+                                                                @endisset
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div class="form-group">
                                                     {!! Form::label('titre', 'Url') !!}
@@ -241,4 +257,10 @@
     @include('pages.footer')
 
 </div>
+
+<script>
+    $(function(){
+        $('#selectCate').selectpicker();
+    });
+</script>  
 @endsection

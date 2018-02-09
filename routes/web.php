@@ -37,7 +37,7 @@ Route::get('/backend', function () {
     return view('backend');
 });
 
-Route::get('/{name}', 'FrontEndController@index');
+Route::get('/sitNmae/{lang}/{name}', 'FrontEndController@index');
 
 
 

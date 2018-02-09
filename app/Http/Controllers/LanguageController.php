@@ -11,10 +11,10 @@ use DB;
 
 class LanguageController extends Controller
 {
-    public function __construct()
-    {
-        $this->middleware('auth');
-    }
+    // public function __construct()
+    // {
+    //     $this->middleware('auth');
+    // }
 
     public function setLocale($locale='en'){
         if(!in_array($locale, ['fr', 'en'])){
@@ -22,6 +22,7 @@ class LanguageController extends Controller
         }
         Session::put('locale', $locale);
         return redirect(url(URL::previous()));
+        //return $locale;
     }
     /**
      * Display a listing of the resource.

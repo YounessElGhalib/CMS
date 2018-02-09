@@ -190,20 +190,42 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="m_widget2_tab1_content">
                                         <div class="m-widget2">
-                                            @if(Session::has('message'))
+                                            {{--  @if(Session::has('message'))
                                                 <div class="alert alert-success">{{ Session::get('message') }}</div>
-                                            @endif
-                                            {!! Form::open(array('route'=>'articles.store')) !!}
+                                            @endif  --}}
+                                            <!--{!! Form::open(array('route'=>'articles.store')) !!}
                                                 <div class="form-group" align="right">
                                                     {!! Form::button('Ajouter', ['type'=>'submit', 'class'=>'btn m-btn--pill btn-brand']) !!}
                                                 </div>
-                                                <div class="form-group">
-                                                    {!! Form::label('titre', 'Titre') !!}
-                                                    {!! Form::text('titre', null, ['class'=>'form-control']) !!}
+                                                <div class="row">
+                                                    <div class="col-xl-8">
+                                                        <div class="form-group">
+                                                            <div id="fr" style="visibility:visible; height:auto; padding-bottom:10px" >Titre</div>
+                                                            <div id="en" style="visibility:hidden; height:0; padding-bottom:0px" >Title</div>
+                                                            {{--  <label for="titre">{{trans("messages.artTitre")}}</label>  --}}
+                                                            {{--  {!! Form::label('titre', trans("messages.artTitre") !!}  --}}
+                                                            {!! Form::text('titre', null, ['class'=>'form-control']) !!}
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-xl-4">
+                                                        {!! Form::label('langue', 'Langue') !!}
+                                                        <div class="select">
+                                                            <select id="selectCate" name="lang" class="form-control m-bootstrap-select--solid">
+                                                                @isset($langs)
+                                                                    @foreach($langs as $lang)
+                                                                        <option value="{{ $lang->id }}" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td><td>{{ $lang->lang }}</td></tr></table>'></option>
+                                                                    @endforeach
+                                                                @endisset
+                                                            </select>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 @isset($select)
                                                     <div class="form-group">
-                                                        {!! Form::label('categorie', 'Catégorie') !!}
+                                                        <div id="fr" style="visibility:visible; height:auto; padding-bottom:10px" >Catégorie</div>
+                                                        <div id="en" style="visibility:hidden; height:0; padding-bottom:0px" >Category</div>
+                                                        {{--  {!! Form::label('categorie', 'Catégorie', ['id'=>'fr', 'style'=>'visibility:visible; height:auto;']) !!}
+                                                        {!! Form::label('categorie', 'Category', ['id'=>'en', 'style'=>'visibility:hidden; height:0; width:0;']) !!}  --}}
                                                         {!! Form::select('categorie', $select, null, ['class'=>'form-control']) !!}
                                                     </div>
                                                 @endisset
@@ -212,7 +234,9 @@
                                                     {!! Form::text('statu', null, ['class'=>'form-control']) !!}
                                                 </div>
                                                 <div class="form-group">
-                                                    {!! Form::label('seo_titre', 'SEO titre') !!}
+                                                    <div id="fr" style="visibility:visible; height:auto; padding-bottom:10px" >SEO Titre</div>
+                                                    <div id="en" style="visibility:hidden; height:0; padding-bottom:0px" >SEO Title</div>
+                                                    {{--  {!! Form::label('seo_titre', 'SEO titre') !!}  --}}
                                                     {!! Form::text('seo_titre', null, ['class'=>'form-control']) !!}
                                                 </div>
                                                 <div class="form-group">
@@ -220,10 +244,29 @@
                                                     {!! Form::text('seo_description', null, ['class'=>'form-control']) !!}
                                                 </div>
                                                 <div class="form-group">
-                                                    {!! Form::label('content', 'Contenu') !!}
+                                                    <div id="fr" style="visibility:visible; height:auto; padding-bottom:10px" >Contenu</div>
+                                                    <div id="en" style="visibility:hidden; height:0; padding-bottom:0px" >Content</div>
+                                                    {{--  {!! Form::label('content', 'Contenu') !!}  --}}
                                                     {!! Form::textarea('content', null, ['class'=>'summernote']) !!}
                                                 </div>
-                                            {!! Form::close() !!}
+                                                <div id="content" class="col-xl-4">
+                                                    
+                                                </div>
+                                            {!! Form::close() !!}-->
+
+                                            <form action="/action_page.php">
+                                                @isset($langs)
+                                                    @foreach($langs as $lang)
+                                                        <label>{{$lang->lang}} :</label>
+                                                        <input class='form-control' type="text" name="firstname">
+                                                        <br>
+                                                        <label>{{$lang->reference}} :</label>
+                                                        <input class='form-control' type="text" name="lastname">
+                                                        <br><br>
+                                                    @endforeach
+                                                @endisset
+                                                <input type="submit" value="Submit">
+                                            </form> 
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="m_widget2_tab2_content"></div>
@@ -243,4 +286,41 @@
     @include('pages.footer')
 
 </div>
+<script>
+    $(function(){
+        $('#selectCate').selectpicker();
+    });
+    
+    $(document).ready(function(){
+
+        $('#selectCate').on('change', function(){
+            $('#content').append({!! Form::text('seo_titre', null, ['class'=>'form-control']) !!}).show()
+            //alert($('#selectCate').val());
+            if($('#selectCate').val()==2){
+                $('.m-widget2 #en').each(function(){
+                    $(this).css("visibility", "visible")
+                    $(this).css("height", "auto")
+                    $(this).css("padding-bottom", "10px")
+                })
+                $('.m-widget2 #fr').each(function(){
+                    $(this).css("visibility", "hidden")
+                    $(this).css("height", "0")
+                    $(this).css("padding-bottom", "0px")
+                })
+            }
+            if($('#selectCate').val()==1){
+                $('.m-widget2 #fr').each(function(){
+                    $(this).css("visibility", "visible")
+                    $(this).css("height", "auto")
+                    $(this).css("padding-bottom", "10px")
+                })
+                $('.m-widget2 #en').each(function(){
+                    $(this).css("visibility", "hidden")
+                    $(this).css("height", "0")
+                    $(this).css("padding-bottom", "0px")
+                })
+            }
+        })
+    })
+</script>  
 @endsection

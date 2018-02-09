@@ -19,4 +19,6 @@ return [
     'langueActuelle' => 'The current language',
     'addLang' => 'If you need to add new language',
     'changerLang' => 'Change the language : ',
+
+    'artTitre' => 'Title',
 ];

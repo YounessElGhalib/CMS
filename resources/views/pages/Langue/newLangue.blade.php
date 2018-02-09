@@ -197,6 +197,18 @@
                                                 <div class="form-group" align="right">
                                                     {!! Form::button('Ajouter', ['type'=>'submit', 'class'=>'btn m-btn--pill btn-brand']) !!}
                                                 </div>
+
+                                                {!! Form::label('nom', 'Langue') !!}
+                                                <div class="select">
+                                                    <select id="selectCate"  class="form-control m-bootstrap-select--solid">
+                                                        <option value="en" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-en"></div></td><td>Anglais</td></tr></table>'></option>
+                                                        <option value="fr" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-fr"></div></td><td>Français</td></tr></table>'></option>
+                                                        <option value="sa" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-sa"></div></td><td>Arabe</td></tr></table>'></option>
+                                                        <option value="es" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-es"></div></td><td>Espagnol</td></tr></table>'></option>
+                                                        <option value="ru" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-ru"></div></td><td>Russe</td></tr></table>'></option>
+                                                    </select>
+                                                </div>
+                                                <br>
                                                 <div class="form-group">
                                                     {!! Form::label('nom', 'Langue') !!}
                                                     {!! Form::text('lang', null, ['class'=>'form-control']) !!}
@@ -225,4 +237,11 @@
     @include('pages.footer')
 
 </div>
+
+<script>
+    $(function(){
+        $('#selectCate').selectpicker();
+    });
+
+</script>   
 @endsection

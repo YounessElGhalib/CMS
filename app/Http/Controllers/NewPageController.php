@@ -28,12 +28,8 @@ class NewPageController extends Controller
     }
 
     public function page(){
-        //$cats = Categorie::all();
-        $select = [];
-        // foreach($cats as $cat){
-        //     $select[$cat->id] = $cat->nom;
-        // }
-        return view('pages.Page.newPage',compact('select'));
+        $langs = DB::table('langues')->get();
+        return view('pages.Page.newPage',compact('langs'));
     }
 
 
@@ -65,6 +61,7 @@ class NewPageController extends Controller
         $page->statu = $request->statu;
         $page->seo_titre = $request->seo_titre;
         $page->seo_description = $request->seo_description;
+        $page->idLang = $request->lang;
 
         $page->save();
         return redirect()->route('pages.index')->with('message',"La page a été ajouté avec succès");
@@ -89,7 +86,8 @@ class NewPageController extends Controller
      */
     public function edit(Page $page)
     {
-        return view('pages.Page.editPage',compact('page'));
+        $langs = DB::table('langues')->get();
+        return view('pages.Page.editPage',compact('page', 'langs'));
     }
 
     /**
@@ -107,7 +105,8 @@ class NewPageController extends Controller
             'url' => $request->url,
             'statu' => $request->statu,
             'seo_titre' => $request->seo_titre,
-            'seo_description' => $request->seo_description
+            'seo_description' => $request->seo_description,
+            'idLang' => $request->lang
         ]);
         return redirect()->route('pages.index')->with('message',"La page a été mis à jour avec succès");
     }

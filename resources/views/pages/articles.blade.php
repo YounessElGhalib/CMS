@@ -204,7 +204,7 @@
                                                 <div class="col-md-8">
                                                     <div class="select">
                                                         <select id="selectCate"  class="form-control m-bootstrap-select--solid">
-                                                                <option value="all">{{ __('messages.tout') }}</option>
+                                                            <option value="all">{{ __('messages.tout') }}</option>
                                                             @foreach ($cats as $cat)
                                                                 <option value="{{ $cat->nom }}">
                                                                     {{ $cat->nom }}
@@ -228,7 +228,7 @@
                                                 <div class="messg"></div>
                                             </th>
                                             <th  style="width:10%;">
-                                                <a href="{{ url('/backend/article/newArticle') }}" class="btn m-btn--pill btn-brand">{{ __('messages.nouveau') }}</a>
+                                                <a href="{{ url('/backend/article/newArticle') }}" class="btn m-btn--pill btn-brand">{{ __('button.nouveau') }}</a>
                                             </th>
                                         </tr>
                                     </thead>
@@ -330,8 +330,8 @@
             type: "warning",
             showCancelButton: true,
             confirmButtonClass: "btn-danger",
-            confirmButtonText: "Yes, delete it!",
-            cancelButtonText: "No, cancel!",
+            confirmButtonText: "{{ __('button.oui') }}",
+            cancelButtonText: "{{ __('button.non') }}",
             closeOnConfirm: false,
             closeOnCancel: false
           },

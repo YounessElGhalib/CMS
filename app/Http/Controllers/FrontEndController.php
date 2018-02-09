@@ -7,19 +7,25 @@ use DB;
 
 class FrontEndController extends Controller
 {
-    public function index($name)
+    public function index($lang, $name)
     {
         $rest = substr($name, -5, 5);
         
         if($rest == ".html"){
             $rest = substr($name, 0, -5);
             $takes = DB::table('pages')->where('url', '=', $rest)->get();
-
-            return view('frontEnd.page', compact('takes'));
-            // foreach($take as $tak){
-            //     $res = $tak->description; 
-            //     $articles = DB::table('articles')->where('id_page', '=', $tak->id)->get();
-            // }
+            $langs = DB::table('langues')->where('reference', '=', $lang)->get();
+            if( $langs == null){
+                return view('Error');
+            }else{
+                foreach($langs as $lang){
+                    foreach($takes as $take){
+                        if($take->idLang == $lang->id){
+                            return view('frontEnd.page', compact('takes'));
+                        }
+                    }
+                }
+            }
         }
         
         return view('Error');
