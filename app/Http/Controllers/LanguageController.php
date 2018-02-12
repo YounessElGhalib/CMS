@@ -59,11 +59,23 @@ class LanguageController extends Controller
      */
     public function store(Request $request)
     {
+        $langue = substr($request->lang, 3);
+        $ref = substr($request->lang, 0, 2);
+
         $lang = new Langue();
-        $lang->lang = $request->lang;
-        $lang->reference = $request->reference;
+
+        $lang->lang = $langue;
+        $lang->reference = $ref;
+        $lang->titre = $request->titre;
+        $lang->categorie = $request->categorie;
+        $lang->statu = $request->statu;
+        $lang->seoTitre = $request->seoT;
+        $lang->seoDescription = $request->seoD;
+        $lang->contenu = $request->contenu;
+        $lang->nom = $request->nom;
 
         $lang->save();
+
         return redirect()->route('language.index')->with('message',"La langue a été ajouté avec succès");
     }
 

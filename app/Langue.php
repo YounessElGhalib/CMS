@@ -8,6 +8,13 @@ class Langue extends Model
 {
     protected $fillable = [
         'lang', 
-        'reference'
+        'reference',
+        'titre', 
+        'categorie',
+        'statu',
+        'seoTitre',
+        'seoDescription',
+        'contenu',
+        'nom'
     ];
 }

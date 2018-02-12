@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+//use Illuminate\Support\Facades\Request;
 use App\PageCate;
 use App\Page;
 use DB;
@@ -83,32 +84,90 @@ class NewArticleController extends Controller
      */
     public function store(Request $request)
     {
-        Page::create(request(['titre',]));
         $page = new Page();
-        $page->titre = $request->titre;
-        $page->contenu = $request->content;
+        $page->titre = $request->fr_Titre;
+        $page->contenu = $request->Français;
         $page->type = 'Article';
         $page->created_by = Auth::user()->id;
-        $page->statu = $request->statu;
-        $page->seo_titre = $request->seo_titre;
-        $page->seo_description = $request->seo_description;
-        $page->idLang = $request->lang;
+        $page->statu = $request->fr_Statu;
+        $page->seo_titre = $request->fr_seoTitre;
+        $page->seo_description = $request->fr_seoDescription;
+        $page->idLang = 1;
+        $page->idParent = 0;
 
         $page->save();
 
-        $id_page = DB::table('pages')->max('id');
+        $id_parent = DB::table('pages')->max('id');
 
-        $categories = DB::table('categories')->where('id', '=', $request->categorie)->get(['id']);
+        $categories = DB::table('categories')->where('id', '=', $request->fr)->get(['id']);
         
         foreach($categories as $categorie){
             $id_cat = $categorie->id;
 
             $page_cate = new PageCate();
-            $page_cate->id_page = $id_page;
+            $page_cate->id_page = $id_parent;
             $page_cate->id_cate = $id_cat;
 
             $page_cate->save();
         }
+
+        $langues = DB::table('langues')->get();
+
+        if($request->en_Titre != "" || $request->sa_Titre != ""){
+            foreach($langues as $lang){
+                if($lang->reference == 'en'){
+                    $page = new Page();
+                    $page->titre = $request->en_Titre;
+                    $page->contenu = $request->Anglais;
+                    $page->type = 'Article';
+                    $page->created_by = Auth::user()->id;
+                    $page->statu = $request->en_Statu;
+                    $page->seo_titre = $request->en_seoTitre;
+                    $page->seo_description = $request->en_seoDescription;
+                    $page->idLang = $lang->id;
+                    $page->idParent = $id_parent;
+                    
+                    $page->save();
+                    
+                    $id_page = DB::table('pages')->max('id');
+                    foreach($categories as $categorie){
+                        $id_cat = $categorie->id;
+            
+                        $page_cate = new PageCate();
+                        $page_cate->id_page = $id_page;
+                        $page_cate->id_cate = $id_cat;
+            
+                        $page_cate->save();
+                    }
+                }
+                if($lang->reference == 'sa'){
+                    $page = new Page();
+                    $page->titre = $request->sa_Titre;
+                    $page->contenu = $request->Arabe;
+                    $page->type = 'Article';
+                    $page->created_by = Auth::user()->id;
+                    $page->statu = $request->sa_Statu;
+                    $page->seo_titre = $request->sa_seoTitre;
+                    $page->seo_description = $request->sa_seoDescription;
+                    $page->idLang = $lang->id;
+                    $page->idParent = $id_parent;
+                    
+                    $page->save();
+    
+                    $id_page = DB::table('pages')->max('id');
+                    foreach($categories as $categorie){
+                        $id_cat = $categorie->id;
+            
+                        $page_cate = new PageCate();
+                        $page_cate->id_page = $id_page;
+                        $page_cate->id_cate = $id_cat;
+            
+                        $page_cate->save();
+                    }
+                }
+            }
+        }
+        
         return redirect()->route("articles.index")->with("message","L'rticle a été ajouté avec succès");
     }
 

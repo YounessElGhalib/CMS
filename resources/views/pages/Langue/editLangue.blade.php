@@ -194,17 +194,48 @@
                                                 <div class="alert alert-success">{{ Session::get('message') }}</div>
                                             @endif
                                             {!! Form::model($lang,array('route'=>['language.update',$lang->id],'method'=>'PUT')) !!}
-                                                <div class="form-group" align="right">
-                                                    {!! Form::button('Modifier',['type'=>'submit','class'=>'btn m-btn--pill btn-brand']) !!}
-                                                </div>
-                                                <div class="form-group">
-                                                    {!! Form::label('lang', 'Langue') !!}
-                                                    {!! Form::text('lang', null, ['class'=>'form-control']) !!}
-                                                </div>
-                                                <div class="form-group">
-                                                    {!! Form::label('ref', 'Référence') !!}
-                                                    {!! Form::text('reference', null, ['class'=>'form-control']) !!}
-                                                </div>
+                                            {!! Form::label('nom', 'Langue') !!}
+                                            <div class="select">
+                                                <select id="selectCate" name="lang"  class="form-control m-bootstrap-select--solid">
+                                                    <option value="{{$lang->lang}}" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-{{$lang->reference}}"></div></td><td>{{$lang->lang}}</td></tr></table>'></option>
+                                                </select>
+                                            </div>
+                                            <br><br><br>
+                                            <h4>Traduire les mots suivant pour la nouvelle langue</h4>
+                                            <br>
+                                            <table style="width:100%">
+                                                <tr>
+                                                    <td style="margin:auto; padding-bottom: 20px; padding-left:20px; width:20%">{!! Form::label('tit', 'Titre') !!}</td>
+                                                    <td style="padding-bottom: 20px; width:80%">{!! Form::text('titre', null, ['class'=>'form-control']) !!}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="margin:auto;  padding-bottom: 20px; padding-left:20px; width:20%">{!! Form::label('cat', 'Catégorie') !!}</td>
+                                                    <td style="padding-bottom: 20px; width:80%">{!! Form::text('categorie', null, ['class'=>'form-control']) !!}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="margin:auto;  padding-bottom: 20px; padding-left:20px; width:20%">{!! Form::label('statuL', 'Statu') !!}</td>
+                                                    <td style="padding-bottom: 20px; width:80%">{!! Form::text('statu', null, ['class'=>'form-control']) !!}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="margin:auto;  padding-bottom: 20px; padding-left:20px; width:20%">{!! Form::label('seoT', 'SEO Titre') !!}</td>
+                                                    <td style="padding-bottom: 20px; width:80%">{!! Form::text('seoTitre', null, ['class'=>'form-control']) !!}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="margin:auto;  padding-bottom: 20px; padding-left:20px; width:20%">{!! Form::label('seoD', 'SEO Description') !!}</td>
+                                                    <td style="padding-bottom: 20px; width:80%">{!! Form::text('seoDescription', null, ['class'=>'form-control']) !!}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="margin:auto;  padding-bottom: 20px; padding-left:20px; width:20%">{!! Form::label('cont', 'Contenu') !!}</td>
+                                                    <td style="padding-bottom: 20px; width:80%">{!! Form::text('contenu', null, ['class'=>'form-control']) !!}</td>
+                                                </tr>
+                                                <tr>
+                                                    <td style="margin:auto;  padding-bottom: 20px; padding-left:20px; width:20%">{!! Form::label('no', 'Nom') !!}</td>
+                                                    <td style="padding-bottom: 20px; width:80%">{!! Form::text('nom', null, ['class'=>'form-control']) !!}</td>
+                                                </tr>
+                                            </table>
+                                            <div class="form-group" align="right">
+                                                {!! Form::button('Modifier', ['type'=>'submit', 'class'=>'btn m-btn--pill btn-brand']) !!}
+                                            </div>
                                             {!! Form::close() !!}
                                         </div>
                                     </div>
@@ -225,4 +256,10 @@
     <!-- end:: Body -->
     @include('pages.footer')
 </div>
+
+<script>
+        $(function(){
+            $('#selectCate').selectpicker();
+        });
+</script> 
 @endsection

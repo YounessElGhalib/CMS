@@ -253,20 +253,55 @@
                                                     
                                                 </div>
                                             {!! Form::close() !!}-->
-
-                                            <form action="/action_page.php">
+                                            <div style="padding-left:80%;" class="col-xl-12">
+                                                {!! Form::label('langue', 'Langue') !!}
+                                                <div class="select">
+                                                    <select id="selectCat" name="lang" class="form-control m-bootstrap-select--solid">
+                                                        @isset($langs)
+                                                            @foreach($langs as $lang)
+                                                                <option value="{{ $lang->reference }}" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td><td>{{ $lang->lang }}</td></tr></table>'></option>
+                                                            @endforeach
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            {!! Form::open(array('route'=>'articles.store')) !!}
                                                 @isset($langs)
                                                     @foreach($langs as $lang)
-                                                        <label>{{$lang->lang}} :</label>
-                                                        <input class='form-control' type="text" name="firstname">
-                                                        <br>
-                                                        <label>{{$lang->reference}} :</label>
-                                                        <input class='form-control' type="text" name="lastname">
-                                                        <br><br>
+                                                        <div id="{{$lang->reference}}" class="div-lang">
+                                                            <label>{{$lang->titre}}</label>
+                                                            <input class='form-control' type="text" name="{{$lang->reference}}_Titre">
+                                                            <br>
+                                                            <label>{{$lang->categorie}}</label>
+                                                            @isset($select)
+                                                                <div class="form-group">
+                                                                    {{--  {!! Form::label('categorie', 'Catégorie', ['id'=>'fr', 'style'=>'visibility:visible; height:auto;']) !!}
+                                                                    {!! Form::label('categorie', 'Category', ['id'=>'en', 'style'=>'visibility:hidden; height:0; width:0;']) !!}  --}}
+                                                                    {!! Form::select($lang->reference, $select, null, ['class'=>'form-control']) !!}
+                                                                </div>
+                                                            @endisset
+                                                            {{--  <input class='form-control' type="text" name="{{$lang->reference}}-{{$lang->categorie}}">  --}}
+                                                            <br>
+                                                            <label align="right">{{$lang->statu}}</label>
+                                                            <input class='form-control' type="text" name="{{$lang->reference}}_Statu">
+                                                            <br>
+                                                            <label>{{$lang->seoTitre}}</label>
+                                                            <input class='form-control' type="text" name="{{$lang->reference}}_seoTitre">
+                                                            <br>
+                                                            <label>{{$lang->seoDescription}}</label>
+                                                            <input class='form-control' type="text" name="{{$lang->reference}}_seoDescription">
+                                                            <br>
+                                                            <label>{{$lang->contenu}}</label>
+                                                            {!! Form::textarea($lang->lang, null, ['class'=>'summernote']) !!}
+                                                        </div>
                                                     @endforeach
                                                 @endisset
-                                                <input type="submit" value="Submit">
-                                            </form> 
+                                                <br>
+                                                <div class="form-group" align="right">
+                                                    <input type="submit" class='btn m-btn--pill btn-brand' value="Ajouter">
+                                                </div>
+                                            {!! Form::close() !!}
                                         </div>
                                     </div>
                                     <div class="tab-pane" id="m_widget2_tab2_content"></div>
@@ -288,38 +323,40 @@
 </div>
 <script>
     $(function(){
-        $('#selectCate').selectpicker();
+        $('#selectCat').selectpicker();
     });
+
+    
+    
     
     $(document).ready(function(){
 
-        $('#selectCate').on('change', function(){
-            $('#content').append({!! Form::text('seo_titre', null, ['class'=>'form-control']) !!}).show()
-            //alert($('#selectCate').val());
-            if($('#selectCate').val()==2){
-                $('.m-widget2 #en').each(function(){
+        node = document.getElementById('fr');
+        //alert($("#fr").attr('class'));
+        $("#fr").css("visibility", "visible")
+        $("#fr").css("height", "auto")
+        $("#fr").css("padding-bottom", "10px")
+
+        $('#selectCat').on('change', function(){
+            
+            $('.div-lang').each(function(){
+                //alert($(this).attr('id'));
+                if($('#selectCat').val() == $(this).attr('id')){
                     $(this).css("visibility", "visible")
                     $(this).css("height", "auto")
                     $(this).css("padding-bottom", "10px")
-                })
-                $('.m-widget2 #fr').each(function(){
+                }else{
                     $(this).css("visibility", "hidden")
                     $(this).css("height", "0")
                     $(this).css("padding-bottom", "0px")
-                })
-            }
-            if($('#selectCate').val()==1){
-                $('.m-widget2 #fr').each(function(){
-                    $(this).css("visibility", "visible")
-                    $(this).css("height", "auto")
-                    $(this).css("padding-bottom", "10px")
-                })
-                $('.m-widget2 #en').each(function(){
-                    $(this).css("visibility", "hidden")
-                    $(this).css("height", "0")
-                    $(this).css("padding-bottom", "0px")
-                })
-            }
+                }
+            })
+
+            //alert($('#selectCat').val());
+            //var idlang = $('#selectCat').val();
+            //$(idlang).css("visibility", "visible")
+            //$(idlang).css("height", "auto")
+            //$(idlang).css("padding-bottom", "10px")
         })
     })
 </script>  

@@ -1,6 +1,10 @@
 @charset "UTF-8";
 /* Style the buttons */
-
+.div-lang{
+    visibility: hidden;
+    height: 0;
+    padding-bottom: 0px;
+}
 
 .sid{
     background-color: #85c6ff;

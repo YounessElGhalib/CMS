@@ -194,28 +194,51 @@
                                                 <div class="alert alert-success">{{ Session::get('message') }}</div>
                                             @endif
                                             {!! Form::open(array('route'=>'language.store')) !!}
-                                                <div class="form-group" align="right">
-                                                    {!! Form::button('Ajouter', ['type'=>'submit', 'class'=>'btn m-btn--pill btn-brand']) !!}
-                                                </div>
-
                                                 {!! Form::label('nom', 'Langue') !!}
                                                 <div class="select">
-                                                    <select id="selectCate"  class="form-control m-bootstrap-select--solid">
-                                                        <option value="en" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-en"></div></td><td>Anglais</td></tr></table>'></option>
-                                                        <option value="fr" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-fr"></div></td><td>Français</td></tr></table>'></option>
-                                                        <option value="sa" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-sa"></div></td><td>Arabe</td></tr></table>'></option>
-                                                        <option value="es" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-es"></div></td><td>Espagnol</td></tr></table>'></option>
-                                                        <option value="ru" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-ru"></div></td><td>Russe</td></tr></table>'></option>
+                                                    <select id="selectCate" name="lang"  class="form-control m-bootstrap-select--solid">
+                                                        <option value="en-Anglais" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-en"></div></td><td>Anglais</td></tr></table>'></option>
+                                                        <option value="fr-Français" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-fr"></div></td><td>Français</td></tr></table>'></option>
+                                                        <option value="sa-Arabe" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-sa"></div></td><td>Arabe</td></tr></table>'></option>
+                                                        <option value="es-Espagnol" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-es"></div></td><td>Espagnol</td></tr></table>'></option>
+                                                        <option value="ru-Russe" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-ru"></div></td><td>Russe</td></tr></table>'></option>
                                                     </select>
                                                 </div>
+                                                <br><br><br>
+                                                <h4>Traduire les mots suivant pour la nouvelle langue</h4>
                                                 <br>
-                                                <div class="form-group">
-                                                    {!! Form::label('nom', 'Langue') !!}
-                                                    {!! Form::text('lang', null, ['class'=>'form-control']) !!}
-                                                </div>
-                                                <div class="form-group">
-                                                    {!! Form::label('ref', 'Référence') !!}
-                                                    {!! Form::text('reference', null, ['class'=>'form-control']) !!}
+                                                <table style="width:100%">
+                                                    <tr>
+                                                        <td style="margin:auto; padding-bottom: 20px; padding-left:20px; width:20%">{!! Form::label('tit', 'Titre') !!}</td>
+                                                        <td style="padding-bottom: 20px; width:80%">{!! Form::text('titre', null, ['class'=>'form-control']) !!}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="margin:auto;  padding-bottom: 20px; padding-left:20px; width:20%">{!! Form::label('cat', 'Catégorie') !!}</td>
+                                                        <td style="padding-bottom: 20px; width:80%">{!! Form::text('categorie', null, ['class'=>'form-control']) !!}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="margin:auto;  padding-bottom: 20px; padding-left:20px; width:20%">{!! Form::label('statuL', 'Statu') !!}</td>
+                                                        <td style="padding-bottom: 20px; width:80%">{!! Form::text('statu', null, ['class'=>'form-control']) !!}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="margin:auto;  padding-bottom: 20px; padding-left:20px; width:20%">{!! Form::label('seoT', 'SEO Titre') !!}</td>
+                                                        <td style="padding-bottom: 20px; width:80%">{!! Form::text('seoT', null, ['class'=>'form-control']) !!}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="margin:auto;  padding-bottom: 20px; padding-left:20px; width:20%">{!! Form::label('seoD', 'SEO Description') !!}</td>
+                                                        <td style="padding-bottom: 20px; width:80%">{!! Form::text('seoD', null, ['class'=>'form-control']) !!}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="margin:auto;  padding-bottom: 20px; padding-left:20px; width:20%">{!! Form::label('cont', 'Contenu') !!}</td>
+                                                        <td style="padding-bottom: 20px; width:80%">{!! Form::text('contenu', null, ['class'=>'form-control']) !!}</td>
+                                                    </tr>
+                                                    <tr>
+                                                        <td style="margin:auto;  padding-bottom: 20px; padding-left:20px; width:20%">{!! Form::label('no', 'Nom') !!}</td>
+                                                        <td style="padding-bottom: 20px; width:80%">{!! Form::text('nom', null, ['class'=>'form-control']) !!}</td>
+                                                    </tr>
+                                                </table>
+                                                <div class="form-group" align="right">
+                                                    {!! Form::button('Ajouter', ['type'=>'submit', 'class'=>'btn m-btn--pill btn-brand']) !!}
                                                 </div>
                                             {!! Form::close() !!}
                                         </div>
