@@ -17,12 +17,14 @@ class PageTable extends Migration
             $table->increments('id');
             $table->string('titre');
             $table->string('url');
-            $table->string('contenu');
+            $table->longText('contenu');
             $table->string('type');
             $table->integer('created_by');
             $table->string('statu');
             $table->string('seo_titre');
             $table->string('seo_description');
+            $table->integer('idLang');
+            $table->integer('idParent');
             $table->timestamps();
         });
     }

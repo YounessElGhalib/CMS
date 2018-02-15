@@ -134,22 +134,6 @@
             <!-- BEGIN: Subheader -->
             <div class="m-subheader ">
                 <div class="d-flex align-items-center">
-                    {{--  <div class="mr-auto">
-                        <h3 class="m-subheader__title ">
-                            Page
-                        </h3>
-                    </div>  --}}
-                    {{--  <div>
-                        <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
-                            <span class="m-subheader__daterange-label">
-                                <span class="m-subheader__daterange-title"></span>
-                                <span class="m-subheader__daterange-date m--font-brand"></span>
-                            </span>
-                            <a href="#" class="btn btn-sm btn-brand m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
-                                <i class="la la-angle-down"></i>
-                            </a>
-                        </span>
-                    </div>  --}}
                 </div>
             </div>
             <!-- END: Subheader -->
@@ -174,7 +158,7 @@
                                 <div class="m-portlet__head-caption">
                                     <div class="m-portlet__head-title">
                                         <h3 class="m-portlet__head-text">
-                                            Modifier la page : <strong>{{$page->titre}}</strong>
+                                            Modification de page
                                         </h3>
                                     </div>
                                 </div>
@@ -190,58 +174,56 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="m_widget2_tab1_content">
                                         <div class="m-widget2">
-                                            @if(Session::has('message'))
-                                                <div class="alert alert-success">{{ Session::get('message') }}</div>
-                                            @endif
-                                            {!! Form::model($page,array('route'=>['pages.update',$page->id],'method'=>'PUT')) !!}
-                                                <div class="form-group" align="right">
-                                                    {!! Form::button('Modifier',['type'=>'submit','class'=>'btn m-btn--pill btn-brand']) !!}
+                                            <div style="padding-left:80%;" class="col-xl-12">
+                                                {{--  {!! Form::label('langue', 'Langue') !!}  --}}
+                                                <div class="select">
+                                                    <select id="selectCat" name="lang" class="form-control m-bootstrap-select--solid">
+                                                        @isset($langs)
+                                                            @foreach($langs as $lang)
+                                                                <option value="{{ $lang->reference }}" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td><td>{{ $lang->lang }}</td></tr></table>'></option>
+                                                            @endforeach
+                                                        @endisset
+                                                    </select>
                                                 </div>
-                                                <div class="row">
-                                                    <div class="col-xl-8">
+                                            </div>
+                                            <br>
+                                            {!! Form::open(array('route'=>['pages.update',$id],'method'=>'PUT')) !!}
+                                                @foreach($array as $arry)
+                                                <div id="{{$arry['lang']}}" class="div-lang">
+                                                    <div class="div-lang">
                                                         <div class="form-group">
-                                                            {!! Form::label('titre', 'Titre') !!}
-                                                            {!! Form::text('titre', null, ['class'=>'form-control']) !!}
+                                                            {!! Form::label('langue', 'Titre') !!}
+                                                            {!! Form::text('id[]', $arry['id'], ['class'=>'form-control']) !!}
                                                         </div>
                                                     </div>
-                                                    <div class="col-xl-4">
-                                                        {!! Form::label('langue', 'Langue') !!}
-                                                        <div class="select">
-                                                            <select id="selectCate" name="lang" class="form-control m-bootstrap-select--solid">
-                                                                @isset($langs)
-                                                                    @foreach($langs as $lang)
-                                                                        <option value="{{ $lang->id }}" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td><td>{{ $lang->lang }}</td></tr></table>'></option>
-                                                                    @endforeach
-                                                                @endisset
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                <div class="form-group">
-                                                    {!! Form::label('name', 'Url') !!}
-                                                    {!! Form::text('url', null, ['class'=>'form-control']) !!}
-                                                </div>
-                                                {{--  @isset($select)
                                                     <div class="form-group">
-                                                        {!! Form::label('categorie', 'Categorie') !!}
-                                                        {!! Form::select('categorie', $selectCat, null, ['class'=>'form-control']) !!}
+                                                        {!! Form::label('langue', 'Titre') !!}
+                                                        {!! Form::text('titre[]', $arry['titre'], ['class'=>'form-control input']) !!}
                                                     </div>
-                                                @endisset  --}}
-                                                <div class="form-group">
-                                                    {!! Form::label('statu', 'Statu') !!}
-                                                    {!! Form::text('statu', null, ['class'=>'form-control']) !!}
+                                                    <div class="form-group">
+                                                        {!! Form::label('url', 'Url') !!}
+                                                        {!! Form::text('url[]', $arry['url'], ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('statu', 'Statu') !!}
+                                                        {!! Form::text('statu[]', $arry['Statu'], ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('seo_titre', 'SEO titre') !!}
+                                                        {!! Form::text('seo_titre[]', $arry['SEO_titre'], ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('seo_description', 'SEO Description') !!}
+                                                        {!! Form::text('seo_description[]', $arry['SEO_Description'], ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('content', 'Contenu') !!}
+                                                        {!! Form::textarea('content[]',  $arry['contenu'], ['class'=>'summernote']) !!}
+                                                    </div>
                                                 </div>
-                                                <div class="form-group">
-                                                    {!! Form::label('seo_titre', 'SEO titre') !!}
-                                                    {!! Form::text('seo_titre', null, ['class'=>'form-control']) !!}
-                                                </div>
-                                                <div class="form-group">
-                                                    {!! Form::label('seo_description', 'SEO Description') !!}
-                                                    {!! Form::text('seo_description', null, ['class'=>'form-control']) !!}
-                                                </div>
-                                                <div class="form-group">
-                                                    {!! Form::label('content', 'Le contenu') !!}
-                                                    {!! Form::textarea('contenu', null, ['class'=>'summernote']) !!}
+                                                @endforeach
+                                                <div class="form-group" align="right">
+                                                    {!! Form::button('Modifier', ['type'=>'submit', 'class'=>'btn m-btn--pill btn-brand']) !!}
                                                 </div>
                                             {!! Form::close() !!}
                                         </div>
@@ -266,7 +248,39 @@
 
 <script>
     $(function(){
-        $('#selectCate').selectpicker();
+        $('#selectCat').selectpicker();
     });
+
+    $(document).ready(function(){
+
+        $("#fr").css("visibility", "visible")
+        $("#fr").css("height", "auto")
+        $("#fr").css("padding-bottom", "10px")
+        $('#fr .input').each(function(){
+            $(this).prop('required',true);
+        }) 
+
+        $('#selectCat').on('change', function(){
+            $('.div-lang').each(function(){
+                if($('#selectCat').val() == $(this).attr('id')){
+                    $(this).css("visibility", "visible")
+                    $(this).css("height", "auto")
+                    $(this).css("padding-bottom", "10px")
+                    $('#'+$(this).attr('id')+' .input').each(function(){
+                        $(this).prop('required',true);
+                    })
+                }else{
+                    $(this).css("visibility", "hidden")
+                    $(this).css("height", "0")
+                    $(this).css("padding-bottom", "0px")
+                    if($(this).attr('id') != "fr"){
+                        $('#'+$(this).attr('id')+' .input').each(function(){
+                            $(this).removeAttr('required');
+                        })
+                    }
+                }
+            })
+        })
+    })
 </script>  
 @endsection

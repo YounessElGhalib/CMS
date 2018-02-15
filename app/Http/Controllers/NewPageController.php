@@ -8,6 +8,7 @@ use App\PostCate;
 use App\Http\Requests\PageRequest;
 use DateTime;
 use DB;
+use Illuminate\Support\Facades\Auth;
 
 class NewPageController extends Controller
 {
@@ -15,16 +16,37 @@ class NewPageController extends Controller
     {
         $this->middleware('auth');
     }
-    /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
+    
     public function index()
     {
-        $countPage = DB::table('pages')->where('type', '=', 'Page')->count();
-        $pages = DB::table('pages')->where('type', '=', 'Page')->get();
-        return view('pages.Page',compact('pages', 'countPage'));
+        $countPage = DB::table('pages')->where('type', '=', 'Page')->where('idParent', '=', 0)->count();
+        $pages2 = DB::table('pages')->where('type', '=', 'Page')->get();
+        $pages = DB::table('pages')->where('type', '=', 'Page')->where('idParent', '=', 0)->get();
+        $langs = DB::table('langues')->get();
+
+        for($i=0;$i<count($pages);$i++){
+            $array[$i] = ['id' => '0','titre' => 'Article', 'url' => 'url', 'languages' => ['fr' =>'false', 'en' =>'false', 'sa' =>'false']];
+        }
+
+        $i=0;
+        foreach($pages as $page){
+            $array[$i]['id'] = $page->id;
+            $array[$i]['titre'] = $page->titre;
+            $array[$i]['url'] = $page->url;
+            $array[$i]['languages']['fr'] = 'true';
+            foreach($pages2 as $pageL){
+                if($page->id == $pageL->idParent){
+                    foreach($langs as $lang){
+                        if($lang->id == $pageL->idLang){
+                            $array[$i]['languages'][$lang->reference] = 'true';
+                        }
+                    }
+                }
+            }
+            $i++;
+        }
+
+        return view('pages.Page',compact('array', 'countPage', 'langs'));
     }
 
     public function page(){
@@ -32,95 +54,145 @@ class NewPageController extends Controller
         return view('pages.Page.newPage',compact('langs'));
     }
 
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
     public function create()
     {
         return "message";
     }
 
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
+    
     public function store(Request $request)
     {
-        $page = new Page();
+        $langs = DB::table('langues')->get();
 
-        $page->titre = $request->titre;
-        $page->contenu = $request->content;
-        $page->type = 'Page';
-        $page->url = $request->url;
-        $page->created_by = \Illuminate\Support\Facades\Auth::user()->id;
-        $page->statu = $request->statu;
-        $page->seo_titre = $request->seo_titre;
-        $page->seo_description = $request->seo_description;
-        $page->idLang = $request->lang;
+        foreach($langs as $lang){
+            $con = $lang->id - 1;
+            if($request->input('titre.'.$con) != null){
+                $page = new Page();
+                $page->titre = $request->input('titre.'.$con);
+                $page->contenu = $request->input('content.'.$con);
+                $page->url = $request->input('url.'.$con);
+                $page->type = 'Page';
+                $page->created_by = Auth::user()->id;
+                $page->statu = $request->input('statu.'.$con);
+                $page->seo_titre = $request->input('seo_titre.'.$con);
+                $page->seo_description = $request->input('seo_description.'.$con);
+                $page->idLang = $lang->id;
+                if($lang->reference == "fr"){
+                    $page->idParent = 0;
+                }else{
+                    $id_parent = DB::table('pages')->where('idLang', '=', 1)->max('id');
+                    $page->idParent = $id_parent;
+                }
 
-        $page->save();
+                $page->save();
+            }
+            
+        }
         return redirect()->route('pages.index')->with('message',"La page a été ajouté avec succès");
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+    
     public function show($id)
     {
         //
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Page $page)
+    
+    public function edit($id)
     {
         $langs = DB::table('langues')->get();
-        return view('pages.Page.editPage',compact('page', 'langs'));
+
+        foreach($langs as $lang){
+            $array[$lang->id-1] = [
+                'id' => '0',
+                'titre' => '', 
+                'url' => '', 
+                'Statu' => '',
+                'SEO_titre' => '',
+                'SEO_Description' => '',
+                'contenu' => '',
+                'lang' => $lang->reference
+                ];
+        }
+
+        $pageParent = DB::table('pages')->where('id', '=', $id)->get();
+        foreach($pageParent as $page){
+            $array[0]['id'] = $page->id;
+            $array[0]['titre'] = $page->titre;
+            $array[0]['url'] = $page->url;
+            $array[0]['Statu'] = $page->statu;
+            $array[0]['SEO_titre'] = $page->seo_titre;
+            $array[0]['SEO_Description'] = $page->seo_description;
+            $array[0]['contenu'] = $page->contenu;
+            $array[0]['lang'] = 'fr';
+            $parentId = $page->id;
+        }
+        $pageChilds = DB::table('pages')->where('idParent', '=', $parentId)->get();
+
+        $i=1;
+        $pages = DB::table('pages')->where('idParent', '=', $id)->get();
+        foreach($pages as $page){
+            $array[$page->idLang-1]['id'] = $page->id;
+            $array[$page->idLang-1]['titre'] = $page->titre;
+            $array[$page->idLang-1]['url'] = $page->url;
+            $array[$page->idLang-1]['Statu'] = $page->statu;
+            $array[$page->idLang-1]['SEO_titre'] = $page->seo_titre;
+            $array[$page->idLang-1]['SEO_Description'] = $page->seo_description;
+            $array[$page->idLang-1]['contenu'] = $page->contenu;
+            foreach($langs as $lang){
+                if($lang->id == $page->idLang){
+                    $array[$page->idLang-1]['lang'] = $lang->reference;
+                }
+            }
+            $parentId = $page->id;
+            $i++;
+        }
+        return view('pages.Page.editPage',compact('array', 'langs', 'id'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
+   
     public function update(Request $request, $id)
     {
-        DB::table('pages')->where('id', $id)->update([
-            'titre' => $request->titre,
-            'contenu' => $request->contenu,
-            'url' => $request->url,
-            'statu' => $request->statu,
-            'seo_titre' => $request->seo_titre,
-            'seo_description' => $request->seo_description,
-            'idLang' => $request->lang
-        ]);
+        $langs = DB::table('langues')->get();
+        $con = 0;
+        foreach($langs as $lang){
+            if($request->input('id.'.$con) != 0){
+                DB::table('pages')->where('id', $request->input('id.'.$con))->update([
+                    'titre' => $request->input('titre.'.$con),
+                    'url' => $request->input('url.'.$con),
+                    'contenu' => $request->input('content.'.$con),
+                    'statu' => $request->input('statu.'.$con),
+                    'seo_titre' => $request->input('seo_titre.'.$con),
+                    'seo_description' => $request->input('seo_description.'.$con)
+                ]);
+            }else if($request->input('id.'.$con) == 0){
+                if($request->input('titre.'.$con) != ''){
+                    $page = new Page();
+                    $page->titre = $request->input('titre.'.$con);
+                    $page->url = $request->input('url.'.$con);
+                    $page->contenu = $request->input('content.'.$con);
+                    $page->type = 'Page';
+                    $page->created_by = Auth::user()->id;
+                    $page->statu = $request->input('statu.'.$con);
+                    $page->seo_titre = $request->input('seo_titre.'.$con);
+                    $page->seo_description = $request->input('seo_description.'.$con);
+                    $page->idLang = $lang->id;
+
+                    $page->idParent = $id;
+                    
+                    $page->save();
+                }
+            }
+            $con++;
+        }
         return redirect()->route('pages.index')->with('message',"La page a été mis à jour avec succès");
     }
 
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Page $page)
+    
+    public function destroy($id)
     {
-        $page->delete();
-        //Bien joué! L'article a été mis à jour avec succès
+        DB::table('pages')->where('id', '=', $id)->delete();
+        DB::table('pages')->where('idParent', '=', $id)->delete();
 
         return redirect()->route('pages.index')->with('message',"La page a été supprimé avec succès");
     }

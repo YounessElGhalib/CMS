@@ -66,13 +66,6 @@ class LanguageController extends Controller
 
         $lang->lang = $langue;
         $lang->reference = $ref;
-        $lang->titre = $request->titre;
-        $lang->categorie = $request->categorie;
-        $lang->statu = $request->statu;
-        $lang->seoTitre = $request->seoT;
-        $lang->seoDescription = $request->seoD;
-        $lang->contenu = $request->contenu;
-        $lang->nom = $request->nom;
 
         $lang->save();
 

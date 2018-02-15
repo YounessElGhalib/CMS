@@ -20,6 +20,8 @@ class CategorieTable extends Migration
             $table->string('url');
             $table->string('seo_titre');
             $table->string('seo_description');
+            $table->integer('idLang');
+            $table->integer('idParent');
             $table->timestamps();
         });
     }

@@ -150,7 +150,7 @@
                             </a>
                         </span>
                     </div>  --}}
-                </div>
+                </div> 
             </div>
             <!-- END: Subheader -->
             <div class="m-content">
@@ -190,10 +190,7 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="m_widget2_tab1_content">
                                         <div class="m-widget2">
-                                            @if(Session::has('message'))
-                                                <div class="alert alert-success">{{ Session::get('message') }}</div>
-                                            @endif
-                                            {!! Form::open(array('route'=>'categories.store')) !!}
+                                            {{--  {!! Form::open(array('route'=>'categories.store')) !!}
                                                 <div class="form-group" align="right">
                                                     {!! Form::button('Ajouter', ['type'=>'submit', 'class'=>'btn m-btn--pill btn-brand']) !!}
                                                 </div>
@@ -205,16 +202,6 @@
                                                     {!! Form::label('titre', 'Url') !!}
                                                     {!! Form::text('url', null, ['class'=>'form-control']) !!}
                                                 </div>
-                                                {{--  @isset($select)
-                                                    <div class="form-group">
-                                                        {!! Form::label('categorie', 'Categorie') !!}
-                                                        {!! Form::select('categorie', $select, null, ['class'=>'form-control']) !!}
-                                                    </div>
-                                                @endisset  --}}
-                                                {{--  <div class="form-group">
-                                                    {!! Form::label('statu', 'Statu') !!}
-                                                    {!! Form::text('statu', null, ['class'=>'form-control']) !!}
-                                                </div>  --}}
                                                 <div class="form-group">
                                                     {!! Form::label('seo_titre', 'SEO titre') !!}
                                                     {!! Form::text('seo_titre', null, ['class'=>'form-control']) !!}
@@ -226,6 +213,48 @@
                                                 <div class="form-group">
                                                     {!! Form::label('content', 'Description') !!}
                                                     {!! Form::textarea('description', null, ['class'=>'summernote']) !!}
+                                                </div>
+                                            {!! Form::close() !!}  --}}
+                                            <div style="padding-left:80%;" class="col-xl-12">
+                                                {!! Form::label('langue', 'Langue') !!}
+                                                <div class="select">
+                                                    <select id="selectCat" name="lang" class="form-control m-bootstrap-select--solid">
+                                                        @isset($langs)
+                                                            @foreach($langs as $lang)
+                                                                <option value="{{ $lang->reference }}" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td><td>{{ $lang->lang }}</td></tr></table>'></option>
+                                                            @endforeach
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            {!! Form::open(array('route'=>'categories.store')) !!}
+                                                @foreach($langs as $lang)
+                                                <div id="{{$lang->reference}}" class="div-lang">
+                                                    <div class="form-group">
+                                                        {!! Form::label('nom', 'Nom') !!}
+                                                        {!! Form::text('nom[]', null, ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('statu', 'Url') !!}
+                                                        {!! Form::text('url[]', null, ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('seo_titre', 'SEO titre') !!}
+                                                        {!! Form::text('seo_titre[]', null, ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('seo_description', 'SEO Description') !!}
+                                                        {!! Form::text('seo_description[]', null, ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('description', 'Description') !!}
+                                                        {!! Form::textarea('description[]', null, ['class'=>'summernote']) !!}
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                <div class="form-group" align="right">
+                                                    {!! Form::button('Ajouter', ['type'=>'submit', 'class'=>'btn m-btn--pill btn-brand']) !!}
                                                 </div>
                                             {!! Form::close() !!}
                                         </div>
@@ -248,4 +277,42 @@
 
 </div>
 
+<script>
+    $(function(){
+        $('#selectCat').selectpicker();
+    });
+
+    $(document).ready(function(){
+
+        $("#fr").css("visibility", "visible")
+        $("#fr").css("height", "auto")
+        $("#fr").css("padding-bottom", "10px")
+        $('#fr .input').each(function(){
+            $(this).prop('required',true);
+        })
+
+        $('#selectCat').on('change', function(){
+            
+            $('.div-lang').each(function(){
+                if($('#selectCat').val() == $(this).attr('id')){
+                    $(this).css("visibility", "visible")
+                    $(this).css("height", "auto")
+                    $(this).css("padding-bottom", "10px")
+                    $('#'+$(this).attr('id')+' .input').each(function(){
+                        $(this).prop('required',true);
+                    })
+                }else{
+                    $(this).css("visibility", "hidden")
+                    $(this).css("height", "0")
+                    $(this).css("padding-bottom", "0px")
+                    if($(this).attr('id') != "fr"){
+                        $('#'+$(this).attr('id')+' .input').each(function(){
+                            $(this).removeAttr('required');
+                        })
+                    }
+                }
+            })
+        })
+    })
+</script>  
 @endsection

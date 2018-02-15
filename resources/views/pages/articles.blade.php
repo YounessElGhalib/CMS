@@ -54,7 +54,7 @@
                                             <span></span>
                                         </i>
                                         <span class="m-menu__link-text">
-                                            Article
+                                            Articles
                                         </span>
                                     </a>
                                 </li>
@@ -64,7 +64,7 @@
                                             <span></span>
                                         </i>
                                         <span class="m-menu__link-text">
-                                            Page
+                                            Pages
                                         </span>
                                     </a>
                                 </li>
@@ -74,7 +74,7 @@
                                             <span></span>
                                         </i>
                                         <span class="m-menu__link-text">
-                                            Catégorie
+                                            Catégories
                                         </span>
                                     </a>
                                 </li>
@@ -240,30 +240,36 @@
                                         <div class="m-widget2">
                                             <table id="mytable" class="table">
                                                 <thead class="thead-default">
-                                                    <tr>
+                                                    <tr class="tr">
                                                         <th>{{ __('messages.tabTitre') }}</th>
                                                         <th>{{ __('messages.tabCategorie') }}</th>
+                                                        <th>Langue</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    @isset($pages)
-                                                        @foreach($pages as $page)
+                                                    @isset($array)
+                                                        @foreach($array as $arry)
                                                         <tr class="tr">
-                                                            <td id="tabTd">{{ $page->titre }}</td>
-                                                            @foreach($pageCates as $pageCate)
-                                                                @if($page->id == $pageCate->id_page)
-                                                                    @foreach ($cats as $cat)
-                                                                        @if($cat->id == $pageCate->id_cate)
-                                                                            <td id="tabTd" class="tabCat">{{ $cat->nom }}</td>
+                                                            <td id="tabTd">{{$arry['titre']}}</td>
+                                                            <td id="tabTd" class="tabCat">{{$arry['categorie']}}</td>
+                                                            <td>
+                                                                <table>
+                                                                    <tr>
+                                                                    @foreach($langs as $lang)
+                                                                        @if($arry['languages'][$lang->reference] == 'true')
+                                                                            <td><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td>
+                                                                        @else
+                                                                            <td style="filter: grayscale(100%);"><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td>
                                                                         @endif
                                                                     @endforeach
-                                                                @endif
-                                                            @endforeach
+                                                                    </tr>
+                                                                </table>
+                                                            </td>
                                                             <td align="right">
-                                                                {!! Form::open(array('route'=>['articles.destroy',$page->id],'method'=>'DELETE', 'id'=>$page->id)) !!}
-                                                                    {{ link_to_route('articles.edit',' ',[$page->id],['class'=>'la la-edit btnEdit']) }} |
-                                                                    {!! Form::button('',['id'=>'delete_id','value'=>$page->id, 'class'=>'la la-trash btnDelete', 'type'=>'button', 'onclick'=>'JSalert(value)']) !!}                                                                
+                                                                {!! Form::open(array('route'=>['articles.destroy',$arry['id']],'method'=>'DELETE', 'id'=>$arry['id'])) !!}
+                                                                    {{ link_to_route('articles.edit',' ',[$arry['id']],['class'=>'la la-edit btnEdit']) }} |
+                                                                    {!! Form::button('',['id'=>'delete_id','value'=>$arry['id'], 'class'=>'la la-trash btnDelete', 'type'=>'button', 'onclick'=>'JSalert(value)']) !!}                                                                
                                                                 {!! Form::close() !!}
                                                             </td>
                                                         </tr>
@@ -272,7 +278,7 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        
+                                        <br>
                                         <div class="pagination-container">
                                             <table style="width:100%">
                                                 <tr>
@@ -318,6 +324,11 @@
 </div>
 
 <script type="text/javascript">
+
+    $(function(){
+        $('#selectCat').selectpicker();
+    });
+    
     setTimeout(function() {
         document.getElementById('message').innerHTML = "";
     },15000);
@@ -349,6 +360,7 @@
             }
           });
     }
+    
 
     $(document).ready(function(){
         var table = '#mytable'
@@ -358,7 +370,7 @@
                 //if(valu != ""){
                     $('.pagination').html('')
                     $('.afficher').html('')
-                    tr=0;
+                    tr=1;
                     td=0;
                     var res = false;
                     $(table+' #tabTd').each(function(){
@@ -407,9 +419,9 @@
             $('.afficher').html('')
             var trnum = 0
             var maxRows = parseInt($(this).val())
-            var totalRows = $(table+' tbody tr').length
+            var totalRows = $(table+' tbody .tr').length
             
-            $(table+' tr:gt(0)').each(function(){
+            $(table+' .tr:gt(0)').each(function(){
                 trnum++;
                 if(trnum > maxRows){
                     $(this).hide()
@@ -424,15 +436,17 @@
                     $('.pagination').append('<li data-page="'+i+'">\<span>'+ i++ +'<span class="sr-only">(current)</span></span>\</li>').show()
                 }
             }
+
             $('.pagination li:first-child').addClass('active')
             $('.pagination li').on('click',function(){
                 $('.afficher').html('')
                 var pageNum = $(this).attr('data-page')
+                
                 $('.afficher').append('<p>Afficher '+((pageNum*maxRows)-(maxRows-1))+' à '+pageNum*maxRows+' de '+totalRows+' enregistrements</p>').show()
                 var trIndex = 0
                 $('.pagination li').removeClass('active')
                 $(this).addClass('active')
-                $(table+' tr:gt(0)').each(function(){
+                $(table+' .tr:gt(0)').each(function(){
                     trIndex++
                     if(trIndex > (maxRows*pageNum) || trIndex <= ((maxRows*pageNum)-maxRows)){
                         $(this).hide()

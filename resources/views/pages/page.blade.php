@@ -242,19 +242,33 @@
                                                     <tr>
                                                         <th>Titre</th>
                                                         <th>URL</th>
+                                                        <th>Langues</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
-                                                <tbody>
-                                                @isset($pages)
-                                                    @foreach($pages as $page)
-                                                    <tr class='tr'>
-                                                        <td id="tabTd">{{ $page->titre }}</td>
-                                                        <td id="tabTd">{{ $page->url }}</td>
+                                                <tbody> 
+                                                    @isset($array)
+                                                    @foreach($array as $arry)
+                                                    <tr class="tr">
+                                                        <td id="tabTd">{{$arry['titre']}}</td>
+                                                        <td id="tabTd">{{$arry['url']}}</td>
+                                                        <td>
+                                                            <table>
+                                                                <tr>
+                                                                @foreach($langs as $lang)
+                                                                    @if($arry['languages'][$lang->reference] == 'true')
+                                                                        <td><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td>
+                                                                    @else
+                                                                        <td style="filter: grayscale(100%);"><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td>
+                                                                    @endif
+                                                                @endforeach
+                                                                </tr>
+                                                            </table>
+                                                        </td>
                                                         <td align="right">
-                                                            {!! Form::open(array('route'=>['pages.destroy',$page->id],'method'=>'DELETE', 'id'=>$page->id)) !!}
-                                                                {{ link_to_route('pages.edit',' ',[$page->id],['class'=>'la la-edit btnEdit']) }} |
-                                                                {!! Form::button('',['id'=>'delete_id','value'=>$page->id, 'class'=>'la la-trash btnDelete', 'type'=>'button', 'onclick'=>'JSalert(value)']) !!}                                                                
+                                                            {!! Form::open(array('route'=>['pages.destroy',$arry['id']],'method'=>'DELETE', 'id'=>$arry['id'])) !!}
+                                                                {{ link_to_route('pages.edit',' ',[$arry['id']],['class'=>'la la-edit btnEdit']) }} |
+                                                                {!! Form::button('',['id'=>'delete_id','value'=>$arry['id'], 'class'=>'la la-trash btnDelete', 'type'=>'button', 'onclick'=>'JSalert(value)']) !!}                                                                
                                                             {!! Form::close() !!}
                                                         </td>
                                                     </tr>

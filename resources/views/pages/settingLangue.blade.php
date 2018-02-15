@@ -129,27 +129,12 @@
                 </ul>
             </div>
             <!-- END: Aside Menu -->
+            <br><br><br><br><br>
         </div>
         <div class="m-grid__item m-grid__item--fluid m-wrapper">
             <!-- BEGIN: Subheader -->
             <div class="m-subheader ">
                 <div class="d-flex align-items-center">
-                    {{--  <div class="mr-auto">
-                        <h3 class="m-subheader__title ">
-                            Article
-                        </h3>
-                    </div>  --}}
-                    {{--  <div>
-                        <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
-                            <span class="m-subheader__daterange-label">
-                                <span class="m-subheader__daterange-title"></span>
-                                <span class="m-subheader__daterange-date m--font-brand"></span>
-                            </span>
-                            <a href="#" class="btn btn-sm btn-brand m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
-                                <i class="la la-angle-down"></i>
-                            </a>
-                        </span>
-                    </div>  --}}
                 </div>
             </div>
             <!-- END: Subheader -->
@@ -234,7 +219,6 @@
                                 </table>
                             </div>
                             
-                            
                             <div class="m-portlet__body">
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="m_widget2_tab1_content">
@@ -265,58 +249,6 @@
                                                 </tbody>
                                             </table>
                                         </div>
-                                        
-                                        <div class="pagination-container">
-                                            {{--  <table style="width:100%">
-                                                <tr>
-                                                    <td style="width:65%">
-                                                        <nav>
-                                                            <ul class="pagination"></ul>
-                                                        </nav>
-                                                    </td>
-                                                    <td style="width:10%">
-                                                        <div class="form-group">
-                                                            <select name="state" id="maxRows" class="selectPagination" style="width:72px;">
-                                                                <option value="5000">{{ __('messages.tout') }}</option>
-                                                                <option value="5">5</option>
-                                                                <option value="10">10</option>
-                                                                <option value="20">20</option>
-                                                                <option value="50">50</option>
-                                                                <option value="100">100</option>
-                                                            </select>
-                                                        </div>
-                                                    </td>
-                                                    <td class="afficher" style="width:25%">
-                                                    </td>
-                                                </tr>
-                                            </table>  --}}
-                                        </div>
-                                        {{--  <div class="col-md-4">
-                                            <div class="btn-group" role="group">
-                                                <span class="m--font-bolder" style="margin:auto; padding-right: 10px; font-size:1.2em;">
-                                                    {{__('messages.changerLang')}}
-                                                </span>
-                                                <button id="btnGroupDrop1" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                                    {{$lang}}
-                                                </button>
-                                                <div class="dropdown-menu" aria-labelledby="btnGroupDrop1" style="position: absolute; transform: translate3d(0px, 37px, 0px); top: 0px; left: 0px; will-change: transform;" x-placement="bottom-start">
-                                                    <a class="dropdown-item" href="{{ url('/backend/articles/fr') }}">
-                                                        {{ __('messages.francais') }}
-                                                    </a>
-                                                    <a class="dropdown-item" href="{{ url('/backend/articles/en') }}">
-                                                        {{ __('messages.anglais') }}
-                                                    </a>
-                                                </div>
-                                            </div>    
-                                        </div>                                   --}}
-                                        {{--  <div class="col-md-4">
-                                            <div class="select">
-                                                <ul> 
-                                                    <li><a href="{{ url('/backend/articles/fr') }}">{{ __('messages.francais') }}</a></li>
-                                                    <li><a href="{{ url('/backend/articles/en') }}">{{ __('messages.anglais') }}</a></li>
-                                                </ul>
-                                            </div>
-                                        </div>  --}}
                                     </div>
                                     <div class="tab-pane" id="m_widget2_tab2_content"></div>
                                     <div class="tab-pane" id="m_widget2_tab3_content"></div>

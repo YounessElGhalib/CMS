@@ -134,22 +134,6 @@
             <!-- BEGIN: Subheader -->
             <div class="m-subheader ">
                 <div class="d-flex align-items-center">
-                    {{--  <div class="mr-auto">
-                        <h3 class="m-subheader__title ">
-                            Article
-                        </h3>
-                    </div>  --}}
-                    {{--  <div>
-                        <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
-                            <span class="m-subheader__daterange-label">
-                                <span class="m-subheader__daterange-title"></span>
-                                <span class="m-subheader__daterange-date m--font-brand"></span>
-                            </span>
-                            <a href="#" class="btn btn-sm btn-brand m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
-                                <i class="la la-angle-down"></i>
-                            </a>
-                        </span>
-                    </div>  --}}
                 </div>
             </div>
             <!-- END: Subheader -->
@@ -190,69 +174,6 @@
                                 <div class="tab-content">
                                     <div class="tab-pane active" id="m_widget2_tab1_content">
                                         <div class="m-widget2">
-                                            {{--  @if(Session::has('message'))
-                                                <div class="alert alert-success">{{ Session::get('message') }}</div>
-                                            @endif  --}}
-                                            <!--{!! Form::open(array('route'=>'articles.store')) !!}
-                                                <div class="form-group" align="right">
-                                                    {!! Form::button('Ajouter', ['type'=>'submit', 'class'=>'btn m-btn--pill btn-brand']) !!}
-                                                </div>
-                                                <div class="row">
-                                                    <div class="col-xl-8">
-                                                        <div class="form-group">
-                                                            <div id="fr" style="visibility:visible; height:auto; padding-bottom:10px" >Titre</div>
-                                                            <div id="en" style="visibility:hidden; height:0; padding-bottom:0px" >Title</div>
-                                                            {{--  <label for="titre">{{trans("messages.artTitre")}}</label>  --}}
-                                                            {{--  {!! Form::label('titre', trans("messages.artTitre") !!}  --}}
-                                                            {!! Form::text('titre', null, ['class'=>'form-control']) !!}
-                                                        </div>
-                                                    </div>
-                                                    <div class="col-xl-4">
-                                                        {!! Form::label('langue', 'Langue') !!}
-                                                        <div class="select">
-                                                            <select id="selectCate" name="lang" class="form-control m-bootstrap-select--solid">
-                                                                @isset($langs)
-                                                                    @foreach($langs as $lang)
-                                                                        <option value="{{ $lang->id }}" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td><td>{{ $lang->lang }}</td></tr></table>'></option>
-                                                                    @endforeach
-                                                                @endisset
-                                                            </select>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                @isset($select)
-                                                    <div class="form-group">
-                                                        <div id="fr" style="visibility:visible; height:auto; padding-bottom:10px" >Catégorie</div>
-                                                        <div id="en" style="visibility:hidden; height:0; padding-bottom:0px" >Category</div>
-                                                        {{--  {!! Form::label('categorie', 'Catégorie', ['id'=>'fr', 'style'=>'visibility:visible; height:auto;']) !!}
-                                                        {!! Form::label('categorie', 'Category', ['id'=>'en', 'style'=>'visibility:hidden; height:0; width:0;']) !!}  --}}
-                                                        {!! Form::select('categorie', $select, null, ['class'=>'form-control']) !!}
-                                                    </div>
-                                                @endisset
-                                                <div class="form-group">
-                                                    {!! Form::label('statu', 'Statu') !!}
-                                                    {!! Form::text('statu', null, ['class'=>'form-control']) !!}
-                                                </div>
-                                                <div class="form-group">
-                                                    <div id="fr" style="visibility:visible; height:auto; padding-bottom:10px" >SEO Titre</div>
-                                                    <div id="en" style="visibility:hidden; height:0; padding-bottom:0px" >SEO Title</div>
-                                                    {{--  {!! Form::label('seo_titre', 'SEO titre') !!}  --}}
-                                                    {!! Form::text('seo_titre', null, ['class'=>'form-control']) !!}
-                                                </div>
-                                                <div class="form-group">
-                                                    {!! Form::label('seo_description', 'SEO Description') !!}
-                                                    {!! Form::text('seo_description', null, ['class'=>'form-control']) !!}
-                                                </div>
-                                                <div class="form-group">
-                                                    <div id="fr" style="visibility:visible; height:auto; padding-bottom:10px" >Contenu</div>
-                                                    <div id="en" style="visibility:hidden; height:0; padding-bottom:0px" >Content</div>
-                                                    {{--  {!! Form::label('content', 'Contenu') !!}  --}}
-                                                    {!! Form::textarea('content', null, ['class'=>'summernote']) !!}
-                                                </div>
-                                                <div id="content" class="col-xl-4">
-                                                    
-                                                </div>
-                                            {!! Form::close() !!}-->
                                             <div style="padding-left:80%;" class="col-xl-12">
                                                 {!! Form::label('langue', 'Langue') !!}
                                                 <div class="select">
@@ -267,39 +188,38 @@
                                             </div>
                                             <br>
                                             {!! Form::open(array('route'=>'articles.store')) !!}
-                                                @isset($langs)
-                                                    @foreach($langs as $lang)
-                                                        <div id="{{$lang->reference}}" class="div-lang">
-                                                            <label>{{$lang->titre}}</label>
-                                                            <input class='form-control' type="text" name="{{$lang->reference}}_Titre">
-                                                            <br>
-                                                            <label>{{$lang->categorie}}</label>
-                                                            @isset($select)
-                                                                <div class="form-group">
-                                                                    {{--  {!! Form::label('categorie', 'Catégorie', ['id'=>'fr', 'style'=>'visibility:visible; height:auto;']) !!}
-                                                                    {!! Form::label('categorie', 'Category', ['id'=>'en', 'style'=>'visibility:hidden; height:0; width:0;']) !!}  --}}
-                                                                    {!! Form::select($lang->reference, $select, null, ['class'=>'form-control']) !!}
-                                                                </div>
-                                                            @endisset
-                                                            {{--  <input class='form-control' type="text" name="{{$lang->reference}}-{{$lang->categorie}}">  --}}
-                                                            <br>
-                                                            <label align="right">{{$lang->statu}}</label>
-                                                            <input class='form-control' type="text" name="{{$lang->reference}}_Statu">
-                                                            <br>
-                                                            <label>{{$lang->seoTitre}}</label>
-                                                            <input class='form-control' type="text" name="{{$lang->reference}}_seoTitre">
-                                                            <br>
-                                                            <label>{{$lang->seoDescription}}</label>
-                                                            <input class='form-control' type="text" name="{{$lang->reference}}_seoDescription">
-                                                            <br>
-                                                            <label>{{$lang->contenu}}</label>
-                                                            {!! Form::textarea($lang->lang, null, ['class'=>'summernote']) !!}
+                                                @foreach($langs as $lang)
+                                                <div id="{{$lang->reference}}" class="div-lang">
+                                                    <div class="form-group">
+                                                        {!! Form::label('langue', 'Titre') !!}
+                                                        {!! Form::text('titre[]', null, ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    @isset($select)
+                                                        <div class="form-group">
+                                                            {!! Form::label('langue', 'Categorie') !!}
+                                                            {!! Form::select('categorie[]', $select, null, ['class'=>'form-control']) !!}
                                                         </div>
-                                                    @endforeach
-                                                @endisset
-                                                <br>
+                                                    @endisset
+                                                    <div class="form-group">
+                                                        {!! Form::label('statu', 'Statu') !!}
+                                                        {!! Form::text('statu[]', null, ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('seo_titre', 'SEO titre') !!}
+                                                        {!! Form::text('seo_titre[]', null, ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('seo_description', 'SEO Description') !!}
+                                                        {!! Form::text('seo_description[]', null, ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('content', 'Contenu') !!}
+                                                        {!! Form::textarea('content[]', null, ['class'=>'summernote']) !!}
+                                                    </div>
+                                                </div>
+                                                @endforeach
                                                 <div class="form-group" align="right">
-                                                    <input type="submit" class='btn m-btn--pill btn-brand' value="Ajouter">
+                                                    {!! Form::button('Ajouter', ['type'=>'submit', 'class'=>'btn m-btn--pill btn-brand']) !!}
                                                 </div>
                                             {!! Form::close() !!}
                                         </div>
@@ -321,42 +241,42 @@
     @include('pages.footer')
 
 </div>
+
 <script>
     $(function(){
         $('#selectCat').selectpicker();
     });
 
-    
-    
-    
     $(document).ready(function(){
 
-        node = document.getElementById('fr');
-        //alert($("#fr").attr('class'));
         $("#fr").css("visibility", "visible")
         $("#fr").css("height", "auto")
         $("#fr").css("padding-bottom", "10px")
+        $('#fr .input').each(function(){
+            $(this).prop('required',true);
+        })
 
         $('#selectCat').on('change', function(){
             
             $('.div-lang').each(function(){
-                //alert($(this).attr('id'));
                 if($('#selectCat').val() == $(this).attr('id')){
                     $(this).css("visibility", "visible")
                     $(this).css("height", "auto")
                     $(this).css("padding-bottom", "10px")
+                    $('#'+$(this).attr('id')+' .input').each(function(){
+                        $(this).prop('required',true);
+                    })
                 }else{
                     $(this).css("visibility", "hidden")
                     $(this).css("height", "0")
                     $(this).css("padding-bottom", "0px")
+                    if($(this).attr('id') != "fr"){
+                        $('#'+$(this).attr('id')+' .input').each(function(){
+                            $(this).removeAttr('required');
+                        })
+                    }
                 }
             })
-
-            //alert($('#selectCat').val());
-            //var idlang = $('#selectCat').val();
-            //$(idlang).css("visibility", "visible")
-            //$(idlang).css("height", "auto")
-            //$(idlang).css("padding-bottom", "10px")
         })
     })
 </script>  

@@ -174,7 +174,7 @@
                                 <div class="m-portlet__head-caption">
                                     <div class="m-portlet__head-title">
                                         <h3 class="m-portlet__head-text">
-                                            Modifier l'article : <strong>{{$page->titre}}</strong>
+                                            Modification de larticle
                                         </h3>
                                     </div>
                                 </div>
@@ -193,7 +193,7 @@
                                             @if(Session::has('message'))
                                                 <div class="alert alert-success">{{ Session::get('message') }}</div>
                                             @endif
-                                            {!! Form::model($page,array('route'=>['articles.update',$page->id],'method'=>'PUT')) !!}
+                                            {{--  {!! Form::model($page,array('route'=>['articles.update',$page->id],'method'=>'PUT')) !!}
                                                 <div class="form-group" align="right">
                                                     {!! Form::button('Modifier',['type'=>'submit','class'=>'btn m-btn--pill btn-brand']) !!}
                                                 </div>
@@ -210,7 +210,11 @@
                                                             <select id="selectCate" name="lang" class="form-control m-bootstrap-select--solid">
                                                                 @isset($langs)
                                                                     @foreach($langs as $lang)
-                                                                        <option value="{{ $lang->id }}" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td><td>{{ $lang->lang }}</td></tr></table>'></option>
+                                                                        @if($myLangSelected == $lang->id)
+                                                                            <option value="{{ $lang->id }}" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td><td>{{ $lang->lang }}</td></tr></table>' selected></option>
+                                                                        @else
+                                                                            <option value="{{ $lang->id }}" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td><td>{{ $lang->lang }}</td></tr></table>'></option>
+                                                                        @endif
                                                                     @endforeach
                                                                 @endisset
                                                             </select>
@@ -239,6 +243,54 @@
                                                     {!! Form::label('content', 'Le contenu') !!}
                                                     {!! Form::textarea('contenu', null, ['class'=>'summernote']) !!}
                                                 </div>
+                                            {!! Form::close() !!}  --}}
+                                            <div style="padding-left:80%;" class="col-xl-12">
+                                                {{--  {!! Form::label('langue', 'Langue') !!}  --}}
+                                                <div class="select">
+                                                    <select id="selectCat" name="lang" class="form-control m-bootstrap-select--solid">
+                                                        @isset($langs)
+                                                            @foreach($langs as $lang)
+                                                                <option value="{{ $lang->reference }}" data-content='<table><tr><td><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td><td>{{ $lang->lang }}</td></tr></table>'></option>
+                                                            @endforeach
+                                                        @endisset
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <br>
+                                            {!! Form::open(array('route'=>['articles.update',$id],'method'=>'PUT')) !!}
+                                                @foreach($array as $arry)
+                                                <div id="{{$arry['lang']}}" class="div-lang">
+                                                    <div class="div-lang">
+                                                        <div class="form-group">
+                                                            {!! Form::label('langue', 'Titre') !!}
+                                                            {!! Form::text('id[]', $arry['id'], ['class'=>'form-control']) !!}
+                                                        </div>
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('langue', 'Titre') !!}
+                                                        {!! Form::text('titre[]', $arry['titre'], ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('statu', 'Statu') !!}
+                                                        {!! Form::text('statu[]', $arry['Statu'], ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('seo_titre', 'SEO titre') !!}
+                                                        {!! Form::text('seo_titre[]', $arry['SEO_titre'], ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('seo_description', 'SEO Description') !!}
+                                                        {!! Form::text('seo_description[]', $arry['SEO_Description'], ['class'=>'form-control input']) !!}
+                                                    </div>
+                                                    <div class="form-group">
+                                                        {!! Form::label('content', 'Contenu') !!}
+                                                        {!! Form::textarea('content[]',  $arry['contenu'], ['class'=>'summernote']) !!}
+                                                    </div>
+                                                </div>
+                                                @endforeach
+                                                <div class="form-group" align="right">
+                                                    {!! Form::button('Modifier', ['type'=>'submit', 'class'=>'btn m-btn--pill btn-brand']) !!}
+                                                </div>
                                             {!! Form::close() !!}
                                         </div>
                                     </div>
@@ -261,7 +313,39 @@
 </div>
 <script>
     $(function(){
-        $('#selectCate').selectpicker();
+        $('#selectCat').selectpicker();
     });
+
+    $(document).ready(function(){
+
+        $("#fr").css("visibility", "visible")
+        $("#fr").css("height", "auto")
+        $("#fr").css("padding-bottom", "10px")
+        $('#fr .input').each(function(){
+            $(this).prop('required',true);
+        }) 
+
+        $('#selectCat').on('change', function(){
+            $('.div-lang').each(function(){
+                if($('#selectCat').val() == $(this).attr('id')){
+                    $(this).css("visibility", "visible")
+                    $(this).css("height", "auto")
+                    $(this).css("padding-bottom", "10px")
+                    $('#'+$(this).attr('id')+' .input').each(function(){
+                        $(this).prop('required',true);
+                    })
+                }else{
+                    $(this).css("visibility", "hidden")
+                    $(this).css("height", "0")
+                    $(this).css("padding-bottom", "0px")
+                    if($(this).attr('id') != "fr"){
+                        $('#'+$(this).attr('id')+' .input').each(function(){
+                            $(this).removeAttr('required');
+                        })
+                    }
+                }
+            })
+        })
+    })
 </script>  
 @endsection

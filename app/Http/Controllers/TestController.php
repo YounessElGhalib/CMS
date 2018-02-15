@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 
+use DB;
+
 class TestController extends Controller
 {
     /**
@@ -13,7 +15,14 @@ class TestController extends Controller
      */
     public function index()
     {
-        return 'the index page';
+        $pages = DB::table('pages')->where('type', '=', 'Article')->where('idParent', '=', 0)->get();
+        
+        return count($pages);
+
+        for($i=0;$i<5;$i++){
+            $array[$i] = ['titre' => 'Article'.$i, 'categorie' => 'cate1', 'languages' => ['fr' =>'true', 'en' =>'true', 'sa' =>'false']];
+        }
+        return view('pages.test', compact('array'));
     }
 
     /**

@@ -134,22 +134,6 @@
             <!-- BEGIN: Subheader -->
             <div class="m-subheader ">
                 <div class="d-flex align-items-center">
-                    {{--  <div class="mr-auto">
-                        <h3 class="m-subheader__title ">
-                            Catégorie
-                        </h3>
-                    </div>  --}}
-                    {{--  <div>
-                        <span class="m-subheader__daterange" id="m_dashboard_daterangepicker">
-                            <span class="m-subheader__daterange-label">
-                                <span class="m-subheader__daterange-title"></span>
-                                <span class="m-subheader__daterange-date m--font-brand"></span>
-                            </span>
-                            <a href="#" class="btn btn-sm btn-brand m-btn m-btn--icon m-btn--icon-only m-btn--custom m-btn--pill">
-                                <i class="la la-angle-down"></i>
-                            </a>
-                        </span>
-                    </div>  --}}
                 </div>
             </div>
             <!-- END: Subheader -->
@@ -164,9 +148,7 @@
                                 <i class="la la-warning"></i>
                             </div>
                             <div class="m-alert__text">
-                                <strong>
-                                    Bien !
-                                </strong>
+                                <strong>Bien !</strong>
                                 {{ Session::get('message') }}
                             </div>
                             <div class="m-alert__close">
@@ -210,21 +192,8 @@
                                                 <div class="messg"></div>
                                             </th>
                                             <th style="width:20%;">
-                                                {{--  <div class="col-md-8">
-                                                    <div class="select">
-                                                        <select id="selectCate"  class="form-control m-bootstrap-select--solid">
-                                                                <option value="all">Tout</option>
-                                                            @foreach ($cats as $cat)
-                                                                <option value="{{ $cat->nom }}">
-                                                                    {{ $cat->nom }}
-                                                                </option>
-                                                            @endforeach
-                                                        </select>
-                                                    </div>
-                                                </div>  --}}
                                             </th>
                                             <th style="width:8%;">
-                                                {{--  <strong style="color:gray;">Catégorie : </strong>  --}}
                                             </th>
                                             <th  style="width:20%;">
                                                 <a href="{{ url('/backend/categorie/newCategorie') }}" class="btn m-btn--pill btn-brand">Nouveau</a>
@@ -242,19 +211,33 @@
                                                     <tr>
                                                         <th>Nom</th>
                                                         <th>URL</th>
+                                                        <th>Langues</th>
                                                         <th></th>
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                @isset($categories)
-                                                    @foreach($categories as $categorie)
-                                                    <tr class='tr'>
-                                                        <td id="tabTd">{{ $categorie->nom }}</td>
-                                                        <td id="tabTd">{{ $categorie->url }}</td>
+                                                    @isset($array)
+                                                    @foreach($array as $arry)
+                                                    <tr class="tr">
+                                                        <td id="tabTd">{{$arry['nom']}}</td>
+                                                        <td id="tabTd">{{$arry['url']}}</td>
+                                                        <td>
+                                                            <table>
+                                                                <tr>
+                                                                @foreach($langs as $lang)
+                                                                    @if($arry['languages'][$lang->reference] == 'true')
+                                                                        <td><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td>
+                                                                    @else
+                                                                        <td style="filter: grayscale(100%);"><div class="img-thumbnail flag flag-icon-background flag-icon-{{ $lang->reference }}"></div></td>
+                                                                    @endif
+                                                                @endforeach
+                                                                </tr>
+                                                            </table>
+                                                        </td>
                                                         <td align="right">
-                                                            {!! Form::open(array('route'=>['categories.destroy',$categorie->id],'method'=>'DELETE', 'id'=>$categorie->id)) !!}
-                                                                {{ link_to_route('categories.edit',' ',[$categorie->id],['class'=>'la la-edit btnEdit']) }} |
-                                                                {!! Form::button('',['id'=>'delete_id','value'=>$categorie->id, 'class'=>'la la-trash btnDelete', 'type'=>'button', 'onclick'=>'JSalert(value)']) !!}                                                                
+                                                            {!! Form::open(array('route'=>['categories.destroy',$arry['id']],'method'=>'DELETE', 'id'=>$arry['id'])) !!}
+                                                                {{ link_to_route('categories.edit',' ',[$arry['id']],['class'=>'la la-edit btnEdit']) }} |
+                                                                {!! Form::button('',['id'=>'delete_id','value'=>$arry['id'], 'class'=>'la la-trash btnDelete', 'type'=>'button', 'onclick'=>'JSalert(value)']) !!}                                                                
                                                             {!! Form::close() !!}
                                                         </td>
                                                     </tr>
@@ -318,9 +301,7 @@ $(document).ready(function(){
         var table = '#mytable'
     
         $('#form_search').on('keyup', function(){
-            //$('.messg').html('')
             var valu = document.getElementById('form_search').value;
-            //if(valu != ""){
                 $('.pagination').html('')
                 $('.afficher').html('')
                 tr=0;
@@ -332,11 +313,9 @@ $(document).ready(function(){
                         res = false;
                     }
                     if(index == 0){
-                        //$(this).css("color", "blue");
                         res = true;
                         td++;
                     }else{
-                        //$(this).css("color", "black");
                         td++;
                     }
     
@@ -348,7 +327,6 @@ $(document).ready(function(){
                         tr++;
                     }
                 })
-            //}
         });
 });
 </script>
