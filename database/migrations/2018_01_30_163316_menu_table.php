@@ -19,6 +19,8 @@ class MenuTable extends Migration
             $table->string('type');
             $table->string('url');
             $table->string('description');
+            $table->integer('idLang');
+            $table->integer('idParent');
             $table->timestamps();
         });
     }

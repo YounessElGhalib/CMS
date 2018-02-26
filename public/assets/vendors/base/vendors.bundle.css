@@ -1,5 +1,64 @@
 @charset "UTF-8";
 /* Style the buttons */
+
+/* start draggable style*/
+.column {
+    width: 100%;
+    float: left;
+    padding-bottom: 100px;
+}
+
+.portlet {
+    margin: 0 5px 5px 0;
+}
+
+.portlet-header {
+    /* padding: 0.2em 0.3em; */
+    padding: 5px;
+    /* margin-bottom: 0.5em; */
+    position: relative;
+} 
+
+.portlet-toggle {
+    position: absolute;
+    top: 50%;
+    right: 0;
+    margin-top: -8px;
+}
+.portlet-content {
+    padding: 0.4em;
+}
+.portlet-placeholder {
+    border: 1px dotted black;
+    background-color: #f5fcff;
+    margin: 0 5px 5px 0;
+    height: 35px;
+}
+/* end draggable style*/
+.panel-collapse{
+    transition : height 0.5s linear 0s;
+    background-color: rgb(255, 255, 255);
+    height: 0px;
+    overflow: hidden;
+    z-index: 20;
+}
+
+.panel-title{
+    padding: 10px 20px 10px 20px;
+    background-color: rgb(245, 245, 245);
+    padding: 10px 20px 10px 20px;
+    z-index: 530;
+}
+
+.panel{
+    border: 1px solid rgb(165, 165, 165);
+    margin: 0px 0px 5px 0px;
+}
+
+#accordion .active{
+    height: 600px;
+}
+
 .div-lang{
     visibility: hidden;
     height: 0;

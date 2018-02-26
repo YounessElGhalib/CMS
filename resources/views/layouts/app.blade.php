@@ -24,10 +24,17 @@
         });
     </script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+    
+
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+    <link rel="stylesheet" href="/resources/demos/style.css">
+  
     <!--end::Web font -->
     <!--begin::Base Styles -->
     <link href="{{ url(asset('assets/vendors/base/vendors.bundle.css'))}}" rel="stylesheet" type="text/css" />
     <link href="{{ url(asset('assets/demo/default/base/style.bundle.css'))}}" rel="stylesheet" type="text/css" />
+    {{--  <link href="{{ url(asset('css/bootstrap.min.css'))}}" rel="stylesheet" type="text/css" />  --}}
     
     <!--end::Base Styles -->
 	<link rel="shortcut icon" href="../assets/demo/default/media/img/logo/favicon.ico" />
@@ -510,6 +517,9 @@
     <script src="{{ url(asset('js/sidMenu.js')) }}" type="text/javascript"></script>
     
     <!--end::Page Resources -->
+    <!--<script src="https://code.jquery.com/jquery-1.12.4.js" type="text/javascript"></script>-->
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js" type="text/javascript"></script>
+    
 </body>
 </html>
 

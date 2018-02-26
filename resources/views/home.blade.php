@@ -34,7 +34,7 @@
                         <i class="m-menu__section-icon flaticon-more-v3"></i>
                     </li>
                     <li class="m-menu__item  m-menu__item--submenu" aria-haspopup="true"  data-menu-submenu-toggle="hover">
-                        <a  href="#" class="m-menu__link m-menu__toggle">
+                        <a class="m-menu__link m-menu__toggle">
                             <i class="m-menu__link-icon flaticon-layers"></i>
                             <span class="m-menu__link-text">
                                 CMS
@@ -78,6 +78,16 @@
                                         </i>
                                         <span class="m-menu__link-text">
                                             Categorie
+                                        </span>
+                                    </a>
+                                </li>
+                                <li class="m-menu__item " aria-haspopup="true" >
+                                    <a  href="{{ url('/backend/menu') }}" class="m-menu__link ">
+                                        <i class="m-menu__link-bullet m-menu__link-bullet--dot">
+                                            <span></span>
+                                        </i>
+                                        <span class="m-menu__link-text">
+                                            Menu
                                         </span>
                                     </a>
                                 </li>
